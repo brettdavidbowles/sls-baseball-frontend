@@ -1,0 +1,6 @@
+query GetLeagues {
+    leagues {
+      id
+      name
+    }
+  }
