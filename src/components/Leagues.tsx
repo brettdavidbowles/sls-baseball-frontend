@@ -13,7 +13,7 @@ export default function Leagues(props: LeagueProps) {
       <ul>
         {props.leagues?.map((league: League) => (
           <li key={league.id}>
-            <Link href={`/leagues/${league.id}`}>{league.name}</Link>
+            <Link href={`/leagues/${league.name}`}>{league.name}</Link>
           </li>
         ))}
       </ul>
