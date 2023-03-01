@@ -1,0 +1,16 @@
+fragment GameData on Game {
+  id
+  dateTime
+  homeTeam {
+    id
+    name
+  }
+  awayTeam {
+    id
+    name
+  }
+  league {
+    id
+    name
+  }
+}

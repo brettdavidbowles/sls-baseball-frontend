@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Leagues from '@/components/Leagues'
-import { League } from "types/gqlTypes"
+import { League, Game } from "types/gqlTypes"
 import client from "apollo-client"
-import { GetLeagues } from "gql/queries/GetLeagues.gql"
+import { GetHomePage } from "gql/queries/GetHomePage.gql"
+import Games from '@/components/Games'
 
 
-export default function Home({ leagues }: { leagues: League[] }) {
+export default function Home({ leagues, upcomingGames, recentGames }: { leagues: League[], upcomingGames: Game[], recentGames: Game[] }) {
   return (
     <>
       <Head>
@@ -20,14 +21,19 @@ export default function Home({ leagues }: { leagues: League[] }) {
           <h1 className='py-4'>Solana League Baseball</h1>
           <p>An interactive baseball simulator.</p>
           <ul className='py-8'>
-            {/* <li className='py-4'>
-              <Link href='leagues'>Leagues</Link>
-            </li> */}
             <li className='py-4'>
               <Link href='login'>Login</Link>
             </li>
           </ul>
-          <Leagues leagues={leagues} />
+          {/* <Leagues leagues={leagues} /> */}
+          <Games
+            games={upcomingGames}
+            title='Upcoming Games'
+          />
+          <Games
+            games={recentGames}
+            title='Recent Games'
+          />
         </div>
       </main>
     </>
@@ -36,11 +42,13 @@ export default function Home({ leagues }: { leagues: League[] }) {
 
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: GetLeagues,
+    query: GetHomePage
   })
   return {
     props: {
       leagues: data.leagues,
+      upcomingGames: data.upcomingGames,
+      recentGames: data.recentGames
     }
   }
 }

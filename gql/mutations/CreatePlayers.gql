@@ -1,0 +1,22 @@
+mutation CreatePlayers (
+  $PlayerInput: [PlayerInput!]!
+){
+  createPlayers(
+    input: $PlayerInput
+  ){
+    firstName
+    lastName
+    team {
+      name
+    }
+    attributes {
+      composure
+      endurance
+      intellect
+      reflexes
+      speed
+      strength
+      willpower
+    }
+  }
+}

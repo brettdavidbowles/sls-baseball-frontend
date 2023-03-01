@@ -1,0 +1,35 @@
+#import "gql/fragments/game.gql"
+
+query GetHomePage(
+  $limit: Int = 10
+  $offset: Int = 0
+  $upcomingGamesIsPast: Boolean = false
+  $recentGamesIsPast: Boolean = true
+) {
+  leagues: leagues {
+    id
+    name
+  },
+  upcomingGames: games(
+    pagination: {
+      limit: $limit
+      offset: $offset
+    }
+    filters: {
+      isPast: $upcomingGamesIsPast
+    }
+  ){
+    ...GameData
+  },
+  recentGames: games(
+    pagination: {
+      limit: $limit
+      offset: $offset
+    }
+    filters: {
+      isPast: $recentGamesIsPast
+    }
+  ){
+    ...GameData
+  }
+}
