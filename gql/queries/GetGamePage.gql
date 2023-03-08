@@ -1,0 +1,22 @@
+#import "gql/fragments/game.gql"
+
+query GetGamePage(
+  $pk: ID!
+) {
+  gameByPk(pk: $pk) {
+    ...GameData
+    homeTeamTotalRuns
+    awayTeamTotalRuns
+    homeTeamTotalHits
+    awayTeamTotalHits
+    homeTeamTotalErrors
+    awayTeamTotalErrors
+    halfInnings {
+      inning
+      rbis
+      errors
+      hits
+      homeTeamAtBat
+    }
+  }
+}

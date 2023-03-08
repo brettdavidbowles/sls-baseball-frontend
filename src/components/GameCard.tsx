@@ -8,7 +8,10 @@ interface GameCardProps {
 
 export default function GameCard(props: GameCardProps) {
   return (
-    <Link href={`/game/${props.game.id}`}>
+    <Link
+      href={`/game/${props.game.id}`}
+      className='m-2'
+    >
       <div className='text-center w-42 mx-auto my-2 p-6 border border-green-800 rounded'>
         <div>
           <div key={props.game.id}>
