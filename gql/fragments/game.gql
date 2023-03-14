@@ -14,3 +14,23 @@ fragment GameData on Game {
     name
   }
 }
+
+fragment LineupData on Game {
+  lineups {
+    id
+    team {
+      id
+      name
+    }
+    players {
+      id
+      position
+      battingOrderNumber
+      player {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+}

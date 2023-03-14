@@ -5,6 +5,7 @@ query GetGamePage(
 ) {
   gameByPk(pk: $pk) {
     ...GameData
+    ...LineupData
     homeTeamTotalRuns
     awayTeamTotalRuns
     homeTeamTotalHits

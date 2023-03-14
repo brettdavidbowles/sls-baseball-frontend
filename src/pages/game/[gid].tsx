@@ -2,9 +2,10 @@ import { useRouter } from 'next/router'
 import client from "apollo-client"
 import { GetGamePage } from "gql/queries/GetGamePage.gql"
 import Link from 'next/link'
-import { Team, HalfInning, League } from "types/gqlTypes"
+import { Team, HalfInning, League, Lineup } from "types/gqlTypes"
 import { ScoreBoard } from '@/components/ScoreBoard'
 import { useMemo } from 'react'
+import LineupCard from '@/components/LineupCard'
 
 interface GameProps {
   id: number,
@@ -12,16 +13,16 @@ interface GameProps {
   awayTeamTotalRuns: number,
   homeTeamTotalHits: number,
   awayTeamTotalHits: number,
-  hometeamTotalErrors: number,
+  homeTeamTotalErrors: number,
   awayTeamTotalErrors: number,
   halfInnings: HalfInning[],
   dateTime: string,
   homeTeam: Team,
   awayTeam: Team,
-  league: League
+  league: League,
+  lineups: Lineup[]
 }
 
-// const { gid } = router.query
 export default function Game(game: GameProps) {
   const router = useRouter()
   const { gid } = router.query
@@ -33,11 +34,11 @@ export default function Game(game: GameProps) {
     return game.halfInnings.filter(halfInning => halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
   }, [game.halfInnings])
   const totalInnings = useMemo(() => {
-    return game.halfInnings.pop()?.inning
+    return [...game.halfInnings]?.pop()?.inning || 0
   }, [game.halfInnings])
 
   return (
-    <div>
+    <div className="p-4">
       <h1>Game {gid}</h1>
       <h2>{game.awayTeam.name} vs {game.homeTeam.name}</h2>
       <ScoreBoard
@@ -46,7 +47,16 @@ export default function Game(game: GameProps) {
         visitorHits={game.awayTeamTotalHits}
         homeHits={game.homeTeamTotalHits}
         totalInnings={totalInnings}
+        homeErrors={game.homeTeamTotalErrors}
+        visitorErrors={game.awayTeamTotalErrors}
+        visitorName={game.awayTeam.name}
+        homeName={game.homeTeam.name}
       />
+      <div>
+        {game.lineups.map((lineup, index) => (
+          <LineupCard key={index} lineup={lineup} />
+        ))}
+      </div>
     </div>
   )
 }

@@ -119,3 +119,11 @@ a {
 h1 {
   @apply text-2xl
 }
+
+.scoreboard td {
+  @apply px-4
+}
+
+.scoreboard th {
+  @apply px-4
+}

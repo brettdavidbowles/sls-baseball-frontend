@@ -7,14 +7,17 @@ interface PitchCount {
 }
 
 interface ScoreBoardProps {
-  // teamOne: string,
   visitorScores: number[],
   homeScores: number[],
   pitchCount?: PitchCount,
   outs?: number,
   visitorHits: number,
   homeHits: number,
-  totalInnings?: number
+  totalInnings?: number,
+  visitorErrors: number,
+  homeErrors: number,
+  visitorName: string,
+  homeName: string,
 }
 const tableHeaders: JSX.Element[] = []
 for (let i = 1; i < 10; i++) {
@@ -30,16 +33,22 @@ const makeNineInnings = (scores: number[]) => {
   return newScores
 }
 
+const abbreviateName = (name: string) => {
+  return name?.split(' ')[0]
+}
+
 
 export class ScoreBoard extends React.Component<ScoreBoardProps>{
   constructor(props: ScoreBoardProps) {
     super(props)
   }
   render() {
+
+    console.log('ScoreBoard', this.props)
     return (
       <div>
-        <div className='p-2 bg-[#098568]'>
-          <div className="m-1 border-4">
+        <div className='p-2 bg-[#098568] relative'>
+          <div className="m-1 p-2 border-4 scoreboard overflow-auto">
             {/* {this.props.teamOne} */}
             <table>
               <thead>
@@ -65,7 +74,7 @@ export class ScoreBoard extends React.Component<ScoreBoardProps>{
                 <tr>
                   {/* move these to another component */}
                   <th className='px-2 text-left'>
-                    VISITOR
+                    {abbreviateName(this.props.visitorName)}
                   </th>
                   {
                     makeNineInnings(this.props.visitorScores).map((score, index) => (
@@ -83,10 +92,16 @@ export class ScoreBoard extends React.Component<ScoreBoardProps>{
                   <td>
                     {this.props.visitorScores.reduce((a, b) => a + b, 0)}
                   </td>
+                  <td>
+                    {this.props.visitorHits}
+                  </td>
+                  <td>
+                    {this.props.visitorErrors}
+                  </td>
                 </tr>
                 <tr>
                   <th className='px-2 text-left'>
-                    HOME
+                    {abbreviateName(this.props.homeName)}
                   </th>
                   {
                     makeNineInnings(this.props.homeScores).map((score, index) => (
@@ -103,6 +118,12 @@ export class ScoreBoard extends React.Component<ScoreBoardProps>{
                   <td>&nbsp;</td>
                   <td>
                     {this.props.homeScores.reduce((a, b) => a + b, 0)}
+                  </td>
+                  <td>
+                    {this.props.homeHits}
+                  </td>
+                  <td>
+                    {this.props.homeErrors}
                   </td>
                 </tr>
 

@@ -68,3 +68,16 @@ export type LeftOnRunner = {
   base: number
   atBatSubindex: number
 }
+
+export type LineupPlayer = {
+  id: number
+  player: Player
+  position: string
+  battingOrderNumber: number
+}
+
+export type Lineup = {
+  id: number
+  team: Team
+  players: LineupPlayer[]
+}
