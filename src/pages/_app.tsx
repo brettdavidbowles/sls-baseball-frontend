@@ -12,8 +12,8 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <WindowWatcher />
         <Component {...pageProps} />
+        <WindowWatcher />
       </ApolloProvider>
     </Provider>
   );
