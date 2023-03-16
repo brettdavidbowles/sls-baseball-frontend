@@ -6,6 +6,8 @@ import { Team, HalfInning, League, Lineup } from "types/gqlTypes"
 import { ScoreBoard } from '@/components/ScoreBoard'
 import { useMemo } from 'react'
 import LineupCard from '@/components/LineupCard'
+import { useSelector } from 'react-redux'
+import { selectIsMobile } from 'store/windowSlice'
 
 interface GameProps {
   id: number,
@@ -26,6 +28,7 @@ interface GameProps {
 export default function Game(game: GameProps) {
   const router = useRouter()
   const { gid } = router.query
+  const isMobile = useSelector(selectIsMobile)
 
   const visitorScores = useMemo(() => {
     return game.halfInnings.filter(halfInning => !halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
@@ -52,7 +55,7 @@ export default function Game(game: GameProps) {
         visitorName={game.awayTeam.name}
         homeName={game.homeTeam.name}
       />
-      <div>
+      <div className={`${!isMobile ? 'flex' : 'block'}`}>
         {game.lineups.map((lineup, index) => (
           <LineupCard key={index} lineup={lineup} />
         ))}
