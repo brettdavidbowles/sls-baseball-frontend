@@ -1,8 +1,9 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import Navbar from './Navbar'
 
-export default function WindowWatcher() {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const isMobile = useSelector(selectIsMobile)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -19,6 +20,9 @@ export default function WindowWatcher() {
     }
   }, [isMobile, dispatch])
   return (
-    <div></div>
+    <div className='w-full h-screen layout'>
+      <Navbar />
+      {children}
+    </div >
   )
 }

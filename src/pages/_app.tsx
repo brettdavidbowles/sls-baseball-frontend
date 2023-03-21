@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/client"
 import client from "apollo-client.js"
 import { wrapper } from 'store/store'
 import { Provider } from 'react-redux'
-import WindowWatcher from '@/components/WindowWatcher'
+import Layout from '@/components/layout'
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest)
@@ -12,8 +12,9 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <Component {...pageProps} />
-        <WindowWatcher />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ApolloProvider>
     </Provider>
   );

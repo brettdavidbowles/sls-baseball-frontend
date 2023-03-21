@@ -55,6 +55,7 @@ export default function Game(game: GameProps) {
         visitorName={game.awayTeam.name}
         homeName={game.homeTeam.name}
       />
+
       <div className={`${!isMobile ? 'flex' : 'block'}`}>
         {game.lineups.map((lineup, index) => (
           <LineupCard key={index} lineup={lineup} />
@@ -71,7 +72,6 @@ export async function getServerSideProps({ query }: { query: { gid: string } }) 
       pk: parseInt(query.gid)
     }
   })
-  console.log(data)
   return {
     props: {
       ...data.gameByPk

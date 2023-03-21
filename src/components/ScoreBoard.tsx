@@ -47,7 +47,7 @@ export class ScoreBoard extends React.Component<ScoreBoardProps>{
     console.log('ScoreBoard', this.props)
     return (
       <div>
-        <div className='p-2 bg-[#098568] relative'>
+        <div className='p-2 bg-green-700 relative'>
           <div className="m-1 p-2 border-4 scoreboard overflow-auto">
             {/* {this.props.teamOne} */}
             <table>

@@ -111,7 +111,7 @@ a {
 @tailwind components;
 @tailwind utilities;
 
-* {
+.layout {
   background-color: black;
   color: white;
 }
