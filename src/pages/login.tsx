@@ -1,13 +1,15 @@
 import { useRef } from "react"
 import { useMutation } from "@apollo/client"
 import { LoginMutation } from "gql/mutations/Login.gql"
+import client from "apollo-client"
+import { GetLoginState } from "gql/queries/GetLoginState.gql"
 
-export default function Login() {
+
+export default function Login({ id, username, email }: { id: number, username: string, email: string }) {
   const usernameRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
 
   const [login, { data }] = useMutation(LoginMutation)
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const username = usernameRef.current?.value
@@ -41,4 +43,23 @@ export default function Login() {
       </form>
     </div>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const cookie = context.req.headers.cookie
+  const { data } = await client.query({
+    query: GetLoginState,
+    context: {
+      headers: {
+        cookie: cookie
+      }
+    }
+  })
+  return {
+    props: {
+      id: data?.me?.id || '',
+      username: data?.me?.username || '',
+      email: data?.me?.email || ''
+    }
+  }
 }
