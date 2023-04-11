@@ -20,7 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   }, [isMobile, dispatch])
   return (
-    <div className='w-full h-screen layout'>
+    <div className='w-full layout'>
       <Navbar />
       {children}
     </div >

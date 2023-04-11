@@ -17,14 +17,14 @@ export default function Login() {
   return (
     <div className="h-full bg-green-700">
       <form
-        className="flex flex-col bg-green-700 p-8"
+        className="flex flex-col bg-green-700 p-8 items-center"
         onSubmit={handleSubmit}
       >
         <label htmlFor="username">Username</label>
         <input
           type="text" name="username" id="username"
           ref={usernameRef}
-          className="bg-black rounded border border-white"
+          className="bg-black rounded border border-white w-full md:w-1/2"
         />
         <label
           htmlFor="password"
@@ -35,7 +35,7 @@ export default function Login() {
         <input
           type="password" name="password" id="password"
           ref={passwordRef}
-          className="bg-black rounded border border-white"
+          className="bg-black rounded border border-white w-full md:w-1/2"
         />
         <button type="submit">Login</button>
       </form>

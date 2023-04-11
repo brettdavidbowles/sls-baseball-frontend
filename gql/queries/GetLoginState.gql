@@ -1,0 +1,7 @@
+query GetLoginState {
+  me {
+    id
+    username
+    email
+  }
+}
