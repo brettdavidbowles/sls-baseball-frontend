@@ -8,13 +8,21 @@ import { GetLoginState } from "gql/queries/GetLoginState.gql"
 export default function Login({ id, username, email }: { id: number, username: string, email: string }) {
   const usernameRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
-
   const [login, { data }] = useMutation(LoginMutation)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const username = usernameRef.current?.value
     const password = passwordRef.current?.value
     login({ variables: { username, password } })
+  }
+  console.log('wtf', id, username, email)
+  if (id && typeof window !== 'undefined') {
+    const now = new Date()
+    const item = {
+      id: id,
+      expiry: now.getTime() + 1000 * 60 * 60 * 24 * 7
+    }
+    localStorage.setItem('auth', JSON.stringify(item))
   }
   return (
     <div className="h-full bg-green-700">
@@ -57,9 +65,9 @@ export async function getServerSideProps(context: any) {
   })
   return {
     props: {
-      id: data?.me?.id || '',
-      username: data?.me?.username || '',
-      email: data?.me?.email || ''
+      id: data?.auth?.id || '',
+      username: data?.auth?.username || '',
+      email: data?.auth?.email || ''
     }
   }
 }

@@ -1,9 +1,13 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './Navbar'
+import { GetLoginState } from "gql/queries/GetLoginState.gql"
+import { useQuery } from "@apollo/client"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  // const { data } = useQuery(GetLoginState)
+  // console.log('auth', data)
   const isMobile = useSelector(selectIsMobile)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -19,9 +23,36 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       window?.removeEventListener('resize', handleWindowResize)
     }
   }, [isMobile, dispatch])
+
+  // const isLoggedIn = useRef<boolean>(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const auth = localStorage.getItem('auth')
+      if (auth) {
+        setIsLoggedIn(true)
+      } else {
+        setIsLoggedIn(false)
+      }
+    }
+    const checkAuth = () => {
+      const auth = localStorage.getItem('auth')
+      if (auth) {
+        setIsLoggedIn(true)
+      } else {
+        setIsLoggedIn(false)
+      }
+    }
+    window?.addEventListener('storage', checkAuth)
+    return () => {
+      window?.removeEventListener('storage', checkAuth)
+    }
+  }, [isLoggedIn])
+
   return (
     <div className='w-full layout'>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} />
       {children}
     </div >
   )

@@ -43,8 +43,6 @@ export class ScoreBoard extends React.Component<ScoreBoardProps>{
     super(props)
   }
   render() {
-
-    console.log('ScoreBoard', this.props)
     return (
       <div>
         <div className='p-2 bg-green-700 relative'>
