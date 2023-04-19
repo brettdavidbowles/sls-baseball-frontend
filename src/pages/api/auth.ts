@@ -1,15 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-interface responseData {
-  success: boolean
-}
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<responseData>
+  res: NextApiResponse
 ) {
   const query = JSON.stringify({
-    query: `mutation {
-      logout
+    query: `query {
+      auth {
+        id
+        username
+        email
+      }
     }`
   })
   const cookie = req.headers.cookie
@@ -21,5 +22,5 @@ export default async function handler(
     body: query
   })
   const readableResponse = await response.json()
-  res.status(200).json({ success: readableResponse?.data?.logout || false })
+  res.status(200).json(readableResponse)
 }

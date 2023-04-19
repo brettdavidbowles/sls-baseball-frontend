@@ -1,14 +1,13 @@
-import { LogoutMutation } from 'gql/mutations/Logout.gql'
-import { useMutation } from "@apollo/client"
+
 import { useState } from 'react'
 
-export default function LogoutButton() {
-  const [logout, { data }] = useMutation(LogoutMutation)
-  const [isLoggedIn, setIsLoggedIn] = useState({})
+interface Props {
+  checkAuth: Function
+}
+
+export default function LogoutButton(props: Props) {
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    // const loginStatus = await logout()
-
     const response = await fetch("/api/logout", {
       method: "GET",
       headers: {
@@ -16,9 +15,7 @@ export default function LogoutButton() {
       },
     })
     const data = await response.json()
-    console.log(data)
-    setIsLoggedIn(response)
-    console.log(isLoggedIn)
+    props.checkAuth()
   }
 
   return (
