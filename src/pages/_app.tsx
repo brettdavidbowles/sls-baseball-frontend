@@ -5,15 +5,8 @@ import client from "apollo-client.js"
 import { wrapper } from 'store/store'
 import { Provider } from 'react-redux'
 import Layout from '@/components/layout'
-import { GetLoginState } from "gql/queries/GetLoginState.gql"
 
-interface MyAppProps extends AppProps {
-  id: string,
-  username: string,
-  email: string
-}
-
-export default function App({ Component, ...rest }: MyAppProps) {
+export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { pageProps } = props
   return (
@@ -26,22 +19,3 @@ export default function App({ Component, ...rest }: MyAppProps) {
     </Provider>
   );
 }
-
-// export async function getServerSideProps(context: any) {
-//   const cookie = context.req.headers.cookie
-//   const { data } = await client.query({
-//     query: GetLoginState,
-//     context: {
-//       headers: {
-//         cookie: cookie
-//       }
-//     }
-//   })
-//   return {
-//     props: {
-//       id: data?.me?.id || '',
-//       username: data?.me?.username || '',
-//       email: data?.me?.email || ''
-//     }
-//   }
-// }
