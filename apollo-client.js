@@ -8,7 +8,7 @@ const client = new ApolloClient({
   ssrMode: true,
   link: createHttpLink({
     // uri: 'http://localhost:8000/graphql/',
-    uri: 'http://ec2-18-188-62-39.us-east-2.compute.amazonaws.com/graphql/'
+    uri: process.env.API_URL
     // credentials: 'same-origin',
     // headers: {
     //   cookie: req.header('Cookie'),
