@@ -13,6 +13,7 @@ const client = new ApolloClient({
     // headers: {
     //   cookie: req.header('Cookie'),
     // },
+    headers: {}
   }),
   cache: new InMemoryCache(),
 });
