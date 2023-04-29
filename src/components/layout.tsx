@@ -19,8 +19,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       window?.removeEventListener('resize', handleWindowResize)
     }
   }, [isMobile, dispatch])
+
   return (
-    <div className='w-full h-screen layout'>
+    <div className='w-full layout'>
       <Navbar />
       {children}
     </div >
