@@ -13,13 +13,18 @@ export default async function handler(
       }
     }`
   })
+
   const cookie = req.headers.cookie
+  const csrf = cookie?.split(';').find(item => item.substring(0, 4) === 'csrf')?.substring(10)
   // const response = await fetch('http://localhost:8000/graphql/', {
   const response = await fetch('https://api.baseballsimulator.online/graphql/', {
     method: 'POST',
     headers: <HeadersInit | undefined>{
-      'cookie': cookie
+      'Accept': 'application/json',
+      'cookie': cookie,
+      'X-CSRFToken': csrf
     },
+    credentials: 'include',
     body: query
   })
   const readableResponse = await response.json()
