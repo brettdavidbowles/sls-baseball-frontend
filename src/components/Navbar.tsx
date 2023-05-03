@@ -42,7 +42,7 @@ export default function Navbar() {
         </Link>
         <a
           // href="http://localhost:8000/accounts/login"
-          href="https://api.baseballsimulator.online/accounts/login/"
+          href="https://baseballsimulator.online/login/"
           className="text-right w-full"
         >
           Login
