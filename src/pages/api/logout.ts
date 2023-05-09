@@ -12,9 +12,9 @@ export default async function handler(
       logout
     }`
   })
+  const apiUrl = process?.env?.NEXT_PUBLIC_API_URL || ''
   const cookie = req.headers.cookie
-  // const response = await fetch('http://localhost:8000/graphql/', {
-  const response = await fetch('https://baseballsimulator.online/graphql/', {
+  const response = await fetch(apiUrl, {
     method: 'POST',
     headers: <HeadersInit | undefined>{
       'cookie': cookie

@@ -1,4 +1,4 @@
-query GetLoginState {
+query GetAuth {
   auth {
     id
     username

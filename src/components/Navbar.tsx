@@ -6,20 +6,17 @@ import { useEffect, useState } from "react"
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const checkAuth = async () => {
-    const response = await fetch("api/auth", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`, {
       method: "GET"
     })
     const { data } = await response.json()
-    if (data?.auth?.id) {
-      setIsLoggedIn(true)
-    } else {
-      setIsLoggedIn(false)
-    }
+    setIsLoggedIn(!!data?.auth?.id)
   }
   useEffect(() => {
     checkAuth()
   }, [])
   const router = useRouter()
+  const loginUrl = process.env.NEXT_PUBLIC_ENV === 'development' ? 'http://localhost:8000/login/' : `${process.env.NEXT_PUBLIC_BASE_URL}/login/`
   const content = () => {
     if (isLoggedIn) {
       return (
@@ -32,23 +29,23 @@ export default function Navbar() {
           <LogoutButton checkAuth={checkAuth} />
         </div>
       )
+    } else {
+      return (
+        <div className="flex justify-end w-full">
+          <Link href="/"
+            className="text-left w-full"
+          >
+            Home
+          </Link>
+          <a
+            href={loginUrl}
+            className="text-right w-full"
+          >
+            Login
+          </a>
+        </div>
+      )
     }
-    return (
-      <div className="flex justify-end w-full">
-        <Link href="/"
-          className="text-left w-full"
-        >
-          Home
-        </Link>
-        <a
-          // href="http://localhost:8000/accounts/login"
-          href="https://baseballsimulator.online/login/"
-          className="text-right w-full"
-        >
-          Login
-        </a>
-      </div>
-    )
   }
 
   return (

@@ -3,8 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    // API_URL: 'https://localhost:8000'
-    API_URL: process.env.API_URL
+    API_URL: process.env.NEXT_PUBLIC_API_URL
   },
   webpack: (config, options) => {
     config.module.rules.push({
