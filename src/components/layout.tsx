@@ -1,7 +1,8 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './Navbar'
+import Slider from './Slider'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const isMobile = useSelector(selectIsMobile)
@@ -19,10 +20,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       window?.removeEventListener('resize', handleWindowResize)
     }
   }, [isMobile, dispatch])
+  const [showSlider, setShowSlider] = useState(false)
+  const toggleSlider = () => {
+    setShowSlider(!showSlider)
+  }
 
   return (
     <div className='w-full layout'>
-      <Navbar />
+      <Navbar toggleSlider={toggleSlider} />
+      <Slider showSlider={showSlider} />
       {children}
     </div >
   )

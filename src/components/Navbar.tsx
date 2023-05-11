@@ -1,10 +1,15 @@
 import Link from "next/link"
 import { useRouter } from 'next/router'
 import LogoutButton from "./LogoutButton"
+import Hamburger from "./Hamburger"
 import { useEffect, useState } from "react"
 
-export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+interface Props {
+  toggleSlider: Function,
+}
+
+export default function Navbar(props: Props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const checkAuth = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`, {
       method: "GET"
@@ -12,40 +17,44 @@ export default function Navbar() {
     const { data } = await response.json()
     setIsLoggedIn(!!data?.auth?.id)
   }
+  const toggleSlider = () => {
+    props.toggleSlider()
+  }
   useEffect(() => {
     checkAuth()
   }, [])
   const router = useRouter()
   const loginUrl = process.env.NEXT_PUBLIC_ENV === 'development' ? 'http://localhost:8000/login/' : `${process.env.NEXT_PUBLIC_BASE_URL}/login/`
   const content = () => {
-    if (isLoggedIn) {
-      return (
-        <div className="flex justify-end w-full">
-          <Link href="/"
-            className="text-left w-full"
-          >
-            Home
-          </Link>
-          <LogoutButton checkAuth={checkAuth} />
-        </div>
-      )
-    } else {
-      return (
-        <div className="flex justify-end w-full">
-          <Link href="/"
-            className="text-left w-full"
-          >
-            Home
-          </Link>
-          <a
+    // if (isLoggedIn) {
+    //   return (
+    //     <div className="flex justify-end w-full">
+    //       <Link href="/"
+    //         className="text-left w-full"
+    //       >
+    //         Home
+    //       </Link>
+    //       <LogoutButton checkAuth={checkAuth} />
+    //     </div>
+    //   )
+    // } else {
+    return (
+      <div className="flex justify-end w-full">
+        <Link href="/"
+          className="text-left w-full"
+        >
+          Home
+        </Link>
+        {/* <a
             href={loginUrl}
             className="text-right w-full"
           >
             Login
-          </a>
-        </div>
-      )
-    }
+          </a> */}
+        <Hamburger handleClick={toggleSlider} />
+      </div>
+    )
+    // }
   }
 
   return (
