@@ -1,12 +1,35 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Navbar from './Navbar'
 import Slider from './Slider'
+
+const links = [
+  { href: '/', text: 'Home' },
+]
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const isMobile = useSelector(selectIsMobile)
   const dispatch = useDispatch()
+  const slider = useRef<HTMLDivElement>(null)
+  const [showSlider, setShowSlider] = useState(false)
+  const toggleSlider = () => {
+    setShowSlider(!showSlider)
+  }
+
+  useEffect(() => {
+    // only add the event listener when the dropdown is opened
+    if (!showSlider) return;
+    const handleClick = (event: React.PointerEvent<HTMLElement>) => {
+      if (slider.current && !slider?.current.contains(event.target as Node)) {
+        console.log('lsdfjl')
+        setShowSlider(false);
+      }
+    }
+    window.addEventListener("click", (() => handleClick));
+    // clean up
+    return () => window.removeEventListener("click", () => handleClick);
+  }, [showSlider]);
   useEffect(() => {
     const isMobile = window?.innerWidth < 768
     dispatch(setIsMobile(isMobile))
@@ -20,15 +43,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       window?.removeEventListener('resize', handleWindowResize)
     }
   }, [isMobile, dispatch])
-  const [showSlider, setShowSlider] = useState(false)
-  const toggleSlider = () => {
-    setShowSlider(!showSlider)
-  }
 
   return (
     <div className='w-full layout'>
-      <Navbar toggleSlider={toggleSlider} />
-      <Slider showSlider={showSlider} />
+      <div ref={slider}>
+        <Navbar toggleSlider={toggleSlider} />
+        <Slider
+          isMobile={isMobile}
+          links={links}
+          showSlider={showSlider} />
+      </div>
       {children}
     </div >
   )

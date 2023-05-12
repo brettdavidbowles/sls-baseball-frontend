@@ -1,11 +1,42 @@
+import Link from "next/link"
+import { useMemo } from "react"
+
+interface linkObject {
+  href: string,
+  text: string
+}
+
 interface Props {
   showSlider: boolean
+  links: linkObject[]
+  isMobile: boolean
 }
 
 export default function Slider(props: Props) {
+  const dimensions = useMemo(() => {
+    if (props.isMobile && props.showSlider) {
+      return 'w-full h-full'
+    } else if (props.isMobile && !props.showSlider) {
+      return 'w-full h-0'
+    } else if (!props.isMobile && props.showSlider) {
+      return 'w-64 h-full'
+    } else {
+      return 'w-0 h-full'
+    }
+  }, [props.isMobile, props.showSlider])
   return (
-    <div className='relative'>
-      <div className={`fixed z-50 min-h-screen right-0 transition-all duration-500 bg-green-700 ${props.showSlider ? 'w-64' : 'w-0'}`} />
+    <div className='relative' >
+      <div className={`fixed z-50 right-0 overflow-y-hidden transition-all duration-500 bg-green-700 ${dimensions}`} >
+        {props.links.map((link: linkObject) => (
+          <Link
+            className={`block w-full p-8 ${props.isMobile ? 'text-center' : 'text-right'} text-xl hover:text-black}`}
+            href={link.href}
+            key={link.href}
+          >
+            {link.text}
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }
