@@ -18,18 +18,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    // only add the event listener when the dropdown is opened
     if (!showSlider) return;
     const handleClick = (event: React.PointerEvent<HTMLElement>) => {
       if (slider.current && !slider?.current.contains(event.target as Node)) {
-        console.log('lsdfjl')
         setShowSlider(false);
       }
     }
-    window.addEventListener("click", (() => handleClick));
-    // clean up
+    window.addEventListener("click", () => handleClick);
     return () => window.removeEventListener("click", () => handleClick);
   }, [showSlider]);
+
   useEffect(() => {
     const isMobile = window?.innerWidth < 768
     dispatch(setIsMobile(isMobile))

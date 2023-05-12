@@ -13,19 +13,18 @@ interface Props {
 }
 
 export default function Slider(props: Props) {
+  // make these ternaries based on showslider and if else on ismobile
   const dimensions = useMemo(() => {
-    if (props.isMobile && props.showSlider) {
-      return 'w-full h-full'
-    } else if (props.isMobile && !props.showSlider) {
-      return 'w-full h-0'
-    } else if (!props.isMobile && props.showSlider) {
-      return 'w-64 h-full'
+    if (props.showSlider) {
+      return props.isMobile ? 'w-full h-full' : 'w-64 h-full'
     } else {
-      return 'w-0 h-full'
+      return props.isMobile ? 'w-full h-0' : 'w-0 h-full'
     }
   }, [props.isMobile, props.showSlider])
   return (
     <div className='relative' >
+
+      <span>{!!props.showSlider}</span>
       <div className={`fixed z-50 right-0 overflow-y-hidden transition-all duration-500 bg-green-700 ${dimensions}`} >
         {props.links.map((link: linkObject) => (
           <Link
