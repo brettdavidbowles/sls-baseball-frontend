@@ -66,8 +66,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }
     }
     window.addEventListener("click", handleClick);
-    return () => window.removeEventListener("click", handleClick);
-  }, [showSlider]);
+    if (isMobile) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener("click", handleClick);
+      document.body.style.overflow = 'unset'
+    }
+  }, [showSlider, isMobile]);
 
   // possbily remove this
   useEffect(() => {
@@ -103,6 +109,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         />
       </div>
       {children}
-    </div >
+    </div>
   )
 }
