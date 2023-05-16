@@ -5,7 +5,6 @@ interface Props {
 }
 
 export default function Hamburger(props: Props) {
-  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
   const handleClick = () => {
     props.handleClick()
   }
