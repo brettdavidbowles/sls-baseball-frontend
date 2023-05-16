@@ -2,14 +2,23 @@ import Link from "next/link"
 import { useMemo } from "react"
 
 interface linkObject {
-  href: string,
   text: string
+  href: string
+}
+interface functionObject {
+  text: string,
+  onClick: Function
 }
 
 interface Props {
   showSlider: boolean
-  links: linkObject[]
+  links: (linkObject | functionObject)[]
   isMobile: boolean
+  closeSlider: Function
+}
+
+const isLinkObject = (link: linkObject | functionObject): link is linkObject => {
+  return (link as linkObject).href !== undefined
 }
 
 export default function Slider(props: Props) {
@@ -23,15 +32,31 @@ export default function Slider(props: Props) {
   return (
     <div className='relative' >
       <div className={`fixed z-50 right-0 overflow-y-hidden transition-all duration-500 bg-green-700 ${dimensions}`} >
-        {props.links.map((link: linkObject) => (
-          <Link
-            className={`block w-full p-8 ${props.isMobile ? 'text-center' : 'text-right'} text-xl hover:text-black}`}
-            href={link.href}
-            key={link.href}
-          >
-            {link.text}
-          </Link>
-        ))}
+        {props.links.map((link) => {
+          if (isLinkObject(link)) {
+            return (
+              <Link
+                className={`block w-full p-8 ${props.isMobile ? 'text-center' : 'text-right'} text-xl hover:text-black}`}
+                href={link.href}
+                key={link.href}
+                onClick={() => props.closeSlider()}
+              >
+                {link.text}
+              </Link>
+            )
+          } else {
+            return (
+              <button
+                className={`block w-full p-8 ${props.isMobile ? 'text-center' : 'text-right'} text-xl hover:text-black}`}
+                onClick={() => link.onClick()}
+                key={link.text}
+              >
+                {link.text}
+              </button>
+            )
+
+          }
+        })}
       </div>
     </div>
   )
