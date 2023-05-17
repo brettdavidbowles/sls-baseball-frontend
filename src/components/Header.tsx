@@ -16,7 +16,7 @@ export default function Header(props: Props) {
     return (
       <div className="w-full">
         <div className="relative w-full">
-          <div className={`py-5 transition-translate duration-500 absolute ${props.collapsed ? 'translate-x-0' : 'translate-x-1/2 -mx-24'} w-full`}>
+          <div className={`py-5 transition-translate duration-500 absolute ${props.collapsed ? 'translate-x-0 mx-0' : 'translate-x-1/2 -mx-24'} w-full`}>
             <Link href="/">
               <h1>Baseball Simulator</h1>
             </Link>
