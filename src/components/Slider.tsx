@@ -48,7 +48,7 @@ export default function Slider(props: Props) {
           } else {
             return (
               <button
-                className={`block w-full p-8 ${props.isMobile ? 'text-center' : 'text-right'} text-xl hover:text-black}`}
+                className={`block w-full p-8 transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'} text-xl hover:text-black}`}
                 onClick={() => link.onClick()}
                 key={link.text}
               >
