@@ -1,7 +1,7 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState, useRef } from 'react'
-import Navbar from './Navbar'
+import Header from './Header'
 import Slider from './Slider'
 import { useRouter } from 'next/router'
 
@@ -12,6 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const slider = useRef<HTMLDivElement>(null)
   const [showSlider, setShowSlider] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [collapseHeader, setCollapseHeader] = useState(false)
   const loginUrl = process.env.NEXT_PUBLIC_ENV === 'development' ? 'http://localhost:8000/login/' : `${process.env.NEXT_PUBLIC_BASE_URL}/login/`
 
   const checkAuth = async () => {
@@ -97,17 +98,53 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   }, [isMobile, dispatch])
 
+  const callbackFunction = (entries: any) => {
+    entries.forEach((entry: any) => {
+      if (entry.isIntersecting) setCollapseHeader(false)
+      if (!entry.isIntersecting) setCollapseHeader(true)
+    })
+  }
+
+  useEffect(() => {
+    if (!document) return
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    const observer = new IntersectionObserver(callbackFunction, options)
+    const target = document?.querySelector('#obdiv')
+    if (target) {
+      observer.observe(target)
+    }
+    return () => {
+      if (target) {
+        observer.unobserve(target)
+        observer.disconnect()
+      }
+    }
+  })
+
   return (
     <div className='w-full layout'>
       <div ref={slider}>
-        <Navbar toggleSlider={toggleSlider} />
+        <Header
+          collapsed={collapseHeader}
+          toggleSlider={toggleSlider}
+        />
         <Slider
           isMobile={isMobile}
           links={links}
           showSlider={showSlider}
           closeSlider={closeSlider}
+          headerCollapsed={collapseHeader}
         />
       </div>
+      <div className={`fixed top-0 w-full transition-all duration-500 ${collapseHeader ? 'h-20' : 'h-36'} bg-bb-dark-blue`} />
+      <p className={`fixed top-0 transition-all duration-500 ${collapseHeader ? 'pt-7' : 'pt-24'} ${collapseHeader && isMobile ? 'opacity-0' : 'opacity-100'} w-full text-center`}>
+        An interactive baseball simulator.
+      </p>
+      <div id="obdiv" className='h-8 absolute top-0'></div>
       {children}
     </div>
   )

@@ -11,19 +11,18 @@ export default function Home({ leagues, upcomingGames, recentGames }: { leagues:
   return (
     <>
       <Head>
-        <title>Solana League Baseball</title>
+        <title>Baseball Simulator</title>
         <meta name="description" content="interactive baseball simulator" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className='w-full text-center'>
-          <h1 className='py-4'>Solana League Baseball</h1>
-          <p>An interactive baseball simulator.</p>
+        <div className='w-full text-center py-24'>
+          {/* <p>An interactive baseball simulator.</p> */}
           <ul className='py-8'>
-            <li className='py-4'>
+            {/* <li className='py-4'>
               <Link href='login'>Login</Link>
-            </li>
+            </li> */}
           </ul>
           {/* <Leagues leagues={leagues} /> */}
           <Games

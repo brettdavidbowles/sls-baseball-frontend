@@ -112,7 +112,7 @@ a {
 @import 'tailwindcss/utilities';
 
 .layout {
-  background-color: black;
+  @apply bg-bb-blue;
   color: white;
   min-height: 100vh;
   width: 100%;
