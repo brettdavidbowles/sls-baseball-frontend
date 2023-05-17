@@ -41,7 +41,7 @@ export default function Game(game: GameProps) {
   }, [game.halfInnings])
 
   return (
-    <div className="p-4">
+    <div className="py-48 px-4">
       <h1>Game {gid}</h1>
       <h2>{game.awayTeam.name} vs {game.homeTeam.name}</h2>
       <ScoreBoard

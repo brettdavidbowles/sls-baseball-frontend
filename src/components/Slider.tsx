@@ -15,6 +15,7 @@ interface Props {
   links: (linkObject | functionObject)[]
   isMobile: boolean
   closeSlider: Function
+  headerCollapsed: boolean
 }
 
 const isLinkObject = (link: linkObject | functionObject): link is linkObject => {
@@ -31,12 +32,12 @@ export default function Slider(props: Props) {
   }, [props.isMobile, props.showSlider])
   return (
     <div className='relative' >
-      <div className={`fixed z-50 right-0 overflow-y-hidden transition-all duration-500 bg-green-700 ${dimensions}`} >
+      <div className={`fixed z-50 right-0 ${props.headerCollapsed ? 'top-20' : 'top-36'} transition-all duration-500 bg-bb-dark-blue ${dimensions}`} >
         {props.links.map((link) => {
           if (isLinkObject(link)) {
             return (
               <Link
-                className={`block w-full p-8 ${props.isMobile ? 'text-center' : 'text-right'} text-xl hover:text-black}`}
+                className={`block w-full p-8 transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'} text-xl hover:text-black}`}
                 href={link.href}
                 key={link.href}
                 onClick={() => props.closeSlider()}
