@@ -37,7 +37,7 @@ export default function Slider(props: Props) {
           if (isLinkObject(link)) {
             return (
               <Link
-                className={`block w-full p-8 text-xl hover:text-bb-tan transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'}}`}
+                className={`block w-full p-8 text-xl hover:text-bb-tan transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'}`}
                 href={link.href}
                 key={link.href}
                 onClick={() => props.closeSlider()}
@@ -48,7 +48,7 @@ export default function Slider(props: Props) {
           } else {
             return (
               <button
-                className={`block w-full p-8 text-xl hover:text-bb-tan transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'}}`}
+                className={`block w-full p-8 text-xl hover:text-bb-tan transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'}`}
                 onClick={() => link.onClick()}
                 key={link.text}
               >
