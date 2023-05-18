@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const slider = useRef<HTMLDivElement>(null)
   const [showSlider, setShowSlider] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [collapseHeader, setCollapseHeader] = useState(false)
+  const [collapseHeader, setCollapseHeader] = useState(true)
   const loginUrl = process.env.NEXT_PUBLIC_ENV === 'development' ? 'http://localhost:8000/login/' : `${process.env.NEXT_PUBLIC_BASE_URL}/login/`
 
   const checkAuth = async () => {
@@ -140,7 +140,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           headerCollapsed={collapseHeader}
         />
       </div>
-      <div className={`fixed top-0 w-full transition-all duration-500 ${collapseHeader ? 'h-20' : 'h-36'} bg-bb-dark-blue`} />
+      <div className={`fixed top-0 w-full transition-all duration-500 ${collapseHeader ? 'h-20' : 'h-36'} header-gradient`} />
       <p className={`fixed top-0 transition-all duration-500 ${collapseHeader ? 'pt-7' : 'pt-24'} ${collapseHeader && isMobile ? 'opacity-0' : 'opacity-100'} w-full text-center`}>
         An interactive baseball simulator.
       </p>

@@ -32,12 +32,12 @@ export default function Slider(props: Props) {
   }, [props.isMobile, props.showSlider])
   return (
     <div className='relative' >
-      <div className={`fixed z-50 right-0 ${props.headerCollapsed ? 'top-20' : 'top-36'} transition-all duration-500 bg-bb-dark-blue ${dimensions}`} >
+      <div className={`fixed z-50 right-0 ${props.headerCollapsed ? 'top-20' : 'top-36'} transition-all duration-500 ${props.isMobile ? 'bg-bb-teal' : 'slider-gradient'} ${dimensions}`} >
         {props.links.map((link) => {
           if (isLinkObject(link)) {
             return (
               <Link
-                className={`block w-full p-8 transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'} text-xl hover:text-black}`}
+                className={`block w-full p-8 text-xl hover:text-bb-tan transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'}}`}
                 href={link.href}
                 key={link.href}
                 onClick={() => props.closeSlider()}
@@ -48,7 +48,7 @@ export default function Slider(props: Props) {
           } else {
             return (
               <button
-                className={`block w-full p-8 transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'} text-xl hover:text-black}`}
+                className={`block w-full p-8 text-xl hover:text-bb-tan transition-opacity duration-500 ${props.isMobile ? 'text-center' : 'text-right'} ${props.showSlider ? 'opacity-100' : 'opacity-0'}}`}
                 onClick={() => link.onClick()}
                 key={link.text}
               >

@@ -112,10 +112,20 @@ a {
 @import 'tailwindcss/utilities';
 
 .layout {
-  @apply bg-bb-blue;
-  color: white;
+  /* @apply bg-bb-teal; */
+  /* color: white; */
+  @apply text-bb-peach;
+  background: linear-gradient(#116466 10%, #2C3531);
   min-height: 100vh;
   width: 100%;
+}
+
+.slider-gradient {
+  background: linear-gradient(to bottom right, #116466 50%, #2C3531);
+}
+
+.header-gradient {
+  background: linear-gradient(#2C3531 10%, #116466)
 }
 
 h1 {

@@ -5,12 +5,12 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'bb-dark-blue': '#242582',
-      'bb-purple': '#553D67',
-      'bb-red': '#F64C72',
-      'bb-mauve': '#99738E',
-      'bb-blue': '#2F2FA2',
-      'white': '#FFFFFF'
+      'white': '#FFFFFF',
+      'bb-black': '#2C3531',
+      'bb-teal': '#116466',
+      'bb-tan': '#D9B08C',
+      'bb-peach': '#FFCB9A',
+      'bb-light-blue': '#D1E8E2'
     },
     extend: {},
   },

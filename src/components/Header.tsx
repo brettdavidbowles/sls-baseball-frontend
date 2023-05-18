@@ -17,9 +17,9 @@ export default function Header(props: Props) {
       <div className="w-full">
         <div className="relative w-full">
           <div className={`py-5 transition-translate duration-500 -mx-24 absolute ${props.collapsed ? 'translate-x-24' : 'translate-x-1/2'} w-full`}>
-            <Link href="/">
-              <h1>Baseball Simulator</h1>
-            </Link>
+
+            <h1><Link href="/">Baseball Simulator</Link></h1>
+
           </div>
           <Hamburger handleClick={toggleSlider} />
         </div>
@@ -32,7 +32,7 @@ export default function Header(props: Props) {
       id='header'
       className="relative h-8"
     >
-      <div className="fixed z-10 flex justify-end bg-bb-dark-blue w-full py-1 px-4">
+      <div className="fixed z-10 flex justify-end bg-bb-black w-full py-1 px-4">
         {content()}
       </div>
     </div>
