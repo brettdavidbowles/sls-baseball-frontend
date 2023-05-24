@@ -145,7 +145,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         An interactive baseball simulator.
       </p>
       <div id="obdiv" className='h-8 absolute top-0'></div>
-      {children}
+      <div className='pt-36 px-4'>
+        {children}
+      </div>
     </div>
   )
 }

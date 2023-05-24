@@ -17,9 +17,9 @@ export default function Home({ leagues, upcomingGames, recentGames }: { leagues:
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className='w-full text-center py-24'>
+        <div className='w-full text-center'>
           {/* <p>An interactive baseball simulator.</p> */}
-          <ul className='py-8'>
+          <ul>
             {/* <li className='py-4'>
               <Link href='login'>Login</Link>
             </li> */}

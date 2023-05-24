@@ -6,6 +6,7 @@ export type League = {
 export type Team = {
   id: number;
   name: string;
+  players: Player[];
 }
 
 export type Game = {

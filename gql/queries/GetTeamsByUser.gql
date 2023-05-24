@@ -1,0 +1,11 @@
+query GetTeamsByUser {
+  teamsByUser {
+    id
+    name
+    players {
+      id
+      firstName
+      lastName
+    }
+  }
+}
