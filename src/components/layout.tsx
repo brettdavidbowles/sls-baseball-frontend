@@ -38,7 +38,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     // const data = await response.json()
     const { data } = await logoutMutation()
     await checkAuth()
-    if (data.success && privateRoutes.includes(router.asPath)) {
+    if (data.logout && privateRoutes.includes(router.asPath)) {
       router.push('/')
     }
     // error handling?
