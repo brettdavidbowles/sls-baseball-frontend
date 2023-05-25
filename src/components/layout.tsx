@@ -6,6 +6,9 @@ import Slider from './Slider'
 import { useRouter } from 'next/router'
 import { privateRoutes } from 'constants/privateRoutes.js'
 import { loginUrl } from 'constants/loginUrl.js'
+import { useMutation } from "@apollo/client"
+import { LogoutMutation } from 'gql/mutations/Logout.gql'
+
 
 export default function Layout({ children }: { children: React.ReactElement<any> }) {
   const router = useRouter()
@@ -15,6 +18,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   const [showSlider, setShowSlider] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [collapseHeader, setCollapseHeader] = useState(true)
+  const [logoutMutation, { data }] = useMutation(LogoutMutation)
 
   const checkAuth = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`, {
@@ -25,13 +29,14 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }
 
   const logout = async () => {
-    const response = await fetch("/api/logout", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    })
-    const data = await response.json()
+    // const response = await fetch("/api/logout", {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    // })
+    // const data = await response.json()
+    const { data } = await logoutMutation()
     await checkAuth()
     if (data.success && privateRoutes.includes(router.asPath)) {
       router.push('/')
