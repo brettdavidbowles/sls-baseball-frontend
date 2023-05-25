@@ -2,11 +2,12 @@ import client from "apollo-client"
 import { GetTeamsByUser } from "gql/queries/GetTeamsByUser.gql"
 import { GetServerSidePropsContext } from "next"
 import { Team } from "types/gqlTypes"
+import { loginUrl } from 'constants/loginUrl.js'
 
-export default function Profile({ teams }: { teams: Team[] }) {
+export default function Profile({ teams, userId, username }: { teams: Team[], userId: number, username: string }) {
   return (
     <div>
-      lksdjfs;aj
+      profile coming, hang tight {username}
     </div>
   )
 }
@@ -21,9 +22,18 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
       }
     }
   })
+  if (!data.auth.id) {
+    return {
+      redirect: {
+        destination: loginUrl
+      }
+    }
+  }
   return {
     props: {
-      teams: data.teamsByUser
+      teams: data.teamsByUser,
+      userId: data.auth.id,
+      username: data.auth.username
     }
   }
 }

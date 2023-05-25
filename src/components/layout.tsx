@@ -4,8 +4,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import Header from './Header'
 import Slider from './Slider'
 import { useRouter } from 'next/router'
+import { privateRoutes } from 'constants/privateRoutes.js'
+import { loginUrl } from 'constants/loginUrl.js'
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactElement<any> }) {
   const router = useRouter()
   const isMobile = useSelector(selectIsMobile)
   const dispatch = useDispatch()
@@ -13,7 +15,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [showSlider, setShowSlider] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [collapseHeader, setCollapseHeader] = useState(true)
-  const loginUrl = process.env.NEXT_PUBLIC_ENV === 'development' ? 'http://localhost:8000/login/' : `${process.env.NEXT_PUBLIC_BASE_URL}/login/`
 
   const checkAuth = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`, {
@@ -31,8 +32,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       },
     })
     const data = await response.json()
+    await checkAuth()
+    if (data.success && privateRoutes.includes(router.asPath)) {
+      router.push('/')
+    }
     // error handling?
-    checkAuth()
+
 
     setTimeout(() => {
       closeSlider()
@@ -146,7 +151,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </p>
       <div id="obdiv" className='h-8 absolute top-0'></div>
       <div className='pt-36 px-4'>
-        {children}
+        {/* {children} */}
+        {
+          React.cloneElement(children, {
+            isLoggedIn: isLoggedIn
+          })
+        }
       </div>
     </div>
   )

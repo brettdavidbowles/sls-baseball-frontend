@@ -1,4 +1,8 @@
 query GetTeamsByUser {
+  auth {
+    id
+    username
+  }
   teamsByUser {
     id
     name
