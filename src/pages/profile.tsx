@@ -22,13 +22,13 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
       }
     }
   })
-  if (!data.auth.id) {
-    return {
-      redirect: {
-        destination: loginUrl
-      }
-    }
-  }
+  // if (!data.auth.id) {
+  //   return {
+  //     redirect: {
+  //       destination: loginUrl
+  //     }
+  //   }
+  // }
   return {
     props: {
       teams: data.teamsByUser,
