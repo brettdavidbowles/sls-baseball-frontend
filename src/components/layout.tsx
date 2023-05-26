@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     ]
     : [
       { href: '/', text: 'Home' },
-      { href: loginUrl, text: 'Login' }
+      { href: '/login', text: 'Login' }
     ]
 
   const toggleSlider = () => {
@@ -67,7 +67,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }
   useEffect(() => {
     checkAuth()
-  }, [])
+  }, [router.asPath])
 
   useEffect(() => {
     if (!showSlider) return;

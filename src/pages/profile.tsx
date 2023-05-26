@@ -5,7 +5,6 @@ import { Team } from "types/gqlTypes"
 import { loginUrl } from 'constants/loginUrl.js'
 
 export default function Profile({ teams, userId, username }: { teams: Team[], userId: number, username: string }) {
-  console.log(userId, username)
   return (
     <div>
       profile coming, hang tight {username}

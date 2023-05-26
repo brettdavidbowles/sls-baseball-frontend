@@ -8,5 +8,6 @@ mutation LoginMutation (
   ) {
       username
       email
+      id
   }
 }
