@@ -2,7 +2,6 @@ import client from "apollo-client"
 import { GetTeamsByUser } from "gql/queries/GetTeamsByUser.gql"
 import { GetServerSidePropsContext } from "next"
 import { Team } from "types/gqlTypes"
-import { loginUrl } from 'constants/loginUrl.js'
 
 export default function Profile({ teams, userId, username }: { teams: Team[], userId: number, username: string }) {
   return (
@@ -16,19 +15,20 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
   const cookie = req.headers.cookie
   const { data } = await client.query({
     query: GetTeamsByUser,
+    fetchPolicy: 'network-only',
     context: {
       headers: {
         cookie
       }
     }
   })
-  // if (!data.auth.id) {
-  //   return {
-  //     redirect: {
-  //       destination: loginUrl
-  //     }
-  //   }
-  // }
+  if (!data.auth.id) {
+    return {
+      redirect: {
+        destination: '/login',
+      }
+    }
+  }
   return {
     props: {
       teams: data.teamsByUser,

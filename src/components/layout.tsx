@@ -1,13 +1,13 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 import Header from './Header'
 import Slider from './Slider'
 import { useRouter } from 'next/router'
 import { privateRoutes } from 'constants/privateRoutes.js'
-import { loginUrl } from 'constants/loginUrl.js'
-import { useMutation } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { LogoutMutation } from 'gql/mutations/Logout.gql'
+import { GetAuth } from 'gql/queries/GetAuth.gql'
 
 
 export default function Layout({ children }: { children: React.ReactElement<any> }) {
@@ -16,48 +16,45 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   const dispatch = useDispatch()
   const slider = useRef<HTMLDivElement>(null)
   const [showSlider, setShowSlider] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [collapseHeader, setCollapseHeader] = useState(true)
-  const [logoutMutation, { data }] = useMutation(LogoutMutation)
+  const { loading, error, data, refetch } = useQuery(GetAuth)
 
-  const checkAuth = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`, {
-      method: "GET"
-    })
-    const { data } = await response.json()
-    setIsLoggedIn(!!data?.auth?.id)
-  }
+  const [logoutMutation] = useMutation(LogoutMutation, {
+    update(cache, { data: { logout } }) {
+      if (logout) {
+        cache.modify({
+          fields: {
+            auth() {
+              return null
+            }
+          }
+        })
+      }
+    }
+  })
 
   const logout = async () => {
-    // const response = await fetch("/api/logout", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    // })
-    // const data = await response.json()
     const { data } = await logoutMutation()
-    await checkAuth()
     if (data.logout && privateRoutes.includes(router.asPath)) {
       router.push('/')
     }
     // error handling?
-
-
     setTimeout(() => {
       closeSlider()
     }, 300)
   }
 
-  const links = isLoggedIn
-    ? [
-      { href: '/', text: 'Home' },
-      { onClick: logout, text: 'Logout' }
-    ]
-    : [
-      { href: '/', text: 'Home' },
-      { href: '/login', text: 'Login' }
-    ]
+  const links =
+    data?.auth?.id
+      ? [
+        { href: '/', text: 'Home' },
+        { onClick: logout, text: 'Logout' }
+      ]
+      : [
+        { href: '/', text: 'Home' },
+        { href: '/login', text: 'Login' }
+      ]
 
   const toggleSlider = () => {
     setShowSlider(!showSlider)
@@ -66,8 +63,8 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     setShowSlider(false)
   }
   useEffect(() => {
-    checkAuth()
-  }, [router.asPath])
+    refetch()
+  }, [router.asPath, refetch])
 
   useEffect(() => {
     if (!showSlider) return;
@@ -156,12 +153,12 @@ export default function Layout({ children }: { children: React.ReactElement<any>
       </p>
       <div id="obdiv" className='h-8 absolute top-0'></div>
       <div className='pt-36 px-4'>
-        {/* {children} */}
-        {
+        {children}
+        {/* {
           React.cloneElement(children, {
             isLoggedIn: isLoggedIn
           })
-        }
+        } */}
       </div>
     </div>
   )
