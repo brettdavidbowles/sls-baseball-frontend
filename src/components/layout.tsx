@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   const slider = useRef<HTMLDivElement>(null)
   const [showSlider, setShowSlider] = useState(false)
   // const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [collapseHeader, setCollapseHeader] = useState(true)
+  const [collapseHeader, setCollapseHeader] = useState(false)
   const { loading, error, data, refetch } = useQuery(GetAuth)
 
   const [logoutMutation] = useMutation(LogoutMutation, {
@@ -62,9 +62,20 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   const closeSlider = () => {
     setShowSlider(false)
   }
+
+  const firstUpdate = useRef(true)
+
   useEffect(() => {
+    if (collapseHeader) {
+      if (window.pageYOffset < 64) {
+        window.scrollTo(0, 64)
+      }
+    }
+    firstUpdate.current = true
     refetch()
-  }, [router.asPath, refetch])
+  }, [router.asPath, refetch, collapseHeader])
+
+
 
   useEffect(() => {
     if (!showSlider) return;
@@ -84,12 +95,12 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }, [showSlider, isMobile]);
 
   // possbily remove this
-  useEffect(() => {
-    if (showSlider) {
-      setShowSlider(false)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.asPath])
+  // useEffect(() => {
+  //   if (showSlider) {
+  //     setShowSlider(false)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [router.asPath])
 
   useLayoutEffect(() => {
     const isMobile = window?.innerWidth < 768
@@ -106,6 +117,10 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }, [isMobile, dispatch])
 
   const callbackFunction = (entries: any) => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) setCollapseHeader(false)
       if (!entry.isIntersecting) setCollapseHeader(true)
