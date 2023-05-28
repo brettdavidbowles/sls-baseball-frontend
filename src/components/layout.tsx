@@ -138,6 +138,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
         <Header
           collapsed={collapseHeader}
           toggleSlider={toggleSlider}
+          isMobile={isMobile}
         />
         <Slider
           isMobile={isMobile}
@@ -147,10 +148,6 @@ export default function Layout({ children }: { children: React.ReactElement<any>
           headerCollapsed={collapseHeader}
         />
       </div>
-      <div className={`fixed top-0 w-full transition-all duration-500 ${collapseHeader ? 'h-20' : 'h-36'} header-gradient`} />
-      <p className={`fixed top-0 transition-all duration-500 ${collapseHeader ? 'pt-7' : 'pt-24'} ${collapseHeader && isMobile ? 'opacity-0' : 'opacity-100'} w-full text-center`}>
-        An interactive baseball simulator.
-      </p>
       <div id="obdiv" className='h-8 absolute top-0'></div>
       <div className='pt-36 px-4'>
         {children}
