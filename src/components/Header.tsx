@@ -24,9 +24,11 @@ export default function Header(props: Props) {
           </div>
           <Hamburger handleClick={toggleSlider} />
           <div className={`fixed top-0 left-0 w-full transition-all duration-500 ${props.collapsed ? 'h-20' : 'h-36'} header-gradient`} />
-          <p className={`fixed top-0 left-0 transition-all duration-500 ${props.collapsed ? 'pt-7' : 'pt-24'} ${props.collapsed && props.isMobile ? 'opacity-0' : 'opacity-100'} w-full text-center`}>
-            An interactive baseball simulator.
-          </p>
+          <div className={`fixed top-0 left-0 transition-all duration-500 ${props.collapsed ? 'pt-7' : 'pt-24'} ${props.collapsed && props.isMobile ? 'opacity-0' : 'opacity-100'} w-full`}>
+            <p className={`transition-all duration-500 ${props.collapsed && props.isMobile ? 'opacity-0' : 'opacity-100'} w-full text-center`}>
+              An interactive baseball simulator.
+            </p>
+          </div>
         </div>
       </div>
     )
