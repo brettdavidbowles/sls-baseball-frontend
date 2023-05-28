@@ -1,6 +1,6 @@
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useEffect, useState, useRef, useMemo } from 'react'
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import Header from './Header'
 import Slider from './Slider'
 import { useRouter } from 'next/router'
@@ -91,7 +91,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const isMobile = window?.innerWidth < 768
     dispatch(setIsMobile(isMobile))
     const handleWindowResize = () => {
@@ -112,7 +112,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!document) return
     const options = {
       root: null,
