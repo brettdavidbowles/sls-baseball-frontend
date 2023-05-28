@@ -63,15 +63,12 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     setShowSlider(false)
   }
 
-  const firstUpdate = useRef(true)
-
   useEffect(() => {
     if (collapseHeader) {
       if (window.pageYOffset < 64) {
         window.scrollTo(0, 64)
       }
     }
-    firstUpdate.current = true
     refetch()
   }, [router.asPath, refetch, collapseHeader])
 
@@ -117,10 +114,6 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }, [isMobile, dispatch])
 
   const callbackFunction = (entries: any) => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) setCollapseHeader(false)
       if (!entry.isIntersecting) setCollapseHeader(true)
