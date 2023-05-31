@@ -64,11 +64,14 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }
 
   useEffect(() => {
-    if (collapseHeader) {
-      if (window.pageYOffset < 64) {
-        window.scrollTo(0, 64)
-      }
+    if (router.asPath !== '/') {
+      setCollapseHeader(true)
     }
+    // if (collapseHeader) {
+    //   if (window.pageYOffset < 64) {
+    //     window.scrollTo(0, 64)
+    //   }
+    // }
     refetch()
   }, [router.asPath, refetch, collapseHeader])
 
@@ -90,14 +93,6 @@ export default function Layout({ children }: { children: React.ReactElement<any>
       document.body.style.overflow = 'unset'
     }
   }, [showSlider, isMobile]);
-
-  // possbily remove this
-  // useEffect(() => {
-  //   if (showSlider) {
-  //     setShowSlider(false)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [router.asPath])
 
   useLayoutEffect(() => {
     const isMobile = window?.innerWidth < 768
@@ -121,7 +116,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
   }
 
   useLayoutEffect(() => {
-    if (!document) return
+    if (!document || router.asPath !== '/') return
     const options = {
       root: null,
       rootMargin: '0px',
@@ -156,8 +151,8 @@ export default function Layout({ children }: { children: React.ReactElement<any>
           headerCollapsed={collapseHeader}
         />
       </div>
-      <div id="obdiv" className='h-8 absolute top-0'></div>
-      <div className='pt-36 px-4'>
+      <div id="obdiv" className='h-1 absolute top-0'></div>
+      <div className='py-16 px-4'>
         {children}
         {/* {
           React.cloneElement(children, {

@@ -17,7 +17,7 @@ export default function Home({ leagues, upcomingGames, recentGames }: { leagues:
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className='w-full text-center'>
+        <div className='w-full text-center pt-24'>
           {/* <p>An interactive baseball simulator.</p> */}
           <ul>
             {/* <li className='py-4'>
