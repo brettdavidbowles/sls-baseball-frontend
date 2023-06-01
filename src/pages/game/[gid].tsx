@@ -43,7 +43,23 @@ export default function Game(game: GameProps) {
   return (
     <div className="py-8">
       <h1>Game {gid}</h1>
-      <h2>{game.awayTeam.name} vs {game.homeTeam.name}</h2>
+      <h2>
+        <Link
+          key={game.awayTeam.id}
+          href={`/team/${game.awayTeam.id}`}
+          className="hover:text-bb-tan"
+        >
+          {game.awayTeam.name}
+        </Link>
+        &nbsp;vs&nbsp;
+        <Link
+          key={game.homeTeam.id}
+          href={`/team/${game.homeTeam.id}`}
+          className="hover:text-bb-tan"
+        >
+          {game.homeTeam.name}
+        </Link>
+      </h2>
       <ScoreBoard
         visitorScores={visitorScores}
         homeScores={homeScores}
