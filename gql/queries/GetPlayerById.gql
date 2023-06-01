@@ -1,0 +1,19 @@
+query GetPlayerById($id: String!) {
+  playerById(id: $id){
+    id
+    firstName
+    lastName
+    team {
+      name
+    }
+    attributes {
+      composure
+      endurance
+      intellect
+      reflexes
+      speed
+      strength
+      willpower
+    }
+  }
+}

@@ -1,0 +1,19 @@
+query GetTeamById($id: String!) {
+    auth {
+      id
+    }
+    teamById(id: $id) {
+      name
+      players {
+        id
+        firstName
+        lastName
+      }
+      managers {
+        id
+        user {
+          username
+        }
+      }
+    }
+  }

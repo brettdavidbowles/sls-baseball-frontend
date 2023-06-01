@@ -49,6 +49,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     data?.auth?.id
       ? [
         { href: '/', text: 'Home' },
+        { href: '/profile', text: 'Profile' },
         { onClick: logout, text: 'Logout' }
       ]
       : [

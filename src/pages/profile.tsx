@@ -2,11 +2,18 @@ import client from "apollo-client"
 import { GetTeamsByUser } from "gql/queries/GetTeamsByUser.gql"
 import { GetServerSidePropsContext } from "next"
 import { Team } from "types/gqlTypes"
+import Link from "next/link"
 
 export default function Profile({ teams, userId, username }: { teams: Team[], userId: number, username: string }) {
   return (
     <div>
-      profile coming, hang tight {username}
+      <h1>Profile</h1>
+      <h2 className="py-4 text-xl">Teams</h2>
+      <div className="flex flex-col">
+        {teams.map(team => (
+          <Link href={`team/${team.id}`} key={team.id}>{team.name}</Link>
+        ))}
+      </div>
     </div>
   )
 }
