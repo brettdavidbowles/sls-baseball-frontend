@@ -57,7 +57,6 @@ export default function Header() {
       ]
 
   const toggleSlider = () => {
-    // props.toggleSlider()
     setShowSlider(!showSlider)
   }
   const closeSlider = () => {
