@@ -1,142 +1,144 @@
+// https://www.google.com/search?q=list+of+famous+mathematicians&oq=list+of+famous+mathematicians&aqs=chrome..69i57.8787j0j1&sourceid=chrome&ie=UTF-8
+
 export const players = [
   {
-    firstName: "ghostface",
-    lastName: "killah",
+    firstName: "pythagoras",
+    lastName: "samos",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "method",
-    lastName: "man",
+    firstName: "euclid",
+    lastName: "geometry-dad",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "gza",
-    lastName: "genius",
+    firstName: "issac",
+    lastName: "newton",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "rza",
-    lastName: "digital",
+    firstName: "aryabhata",
+    lastName: "i",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "u",
-    lastName: "god",
+    firstName: "archimedes",
+    lastName: "syracuse",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "masta",
-    lastName: "killa",
+    firstName: "carl",
+    lastName: "gauss",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "inspectah",
-    lastName: "deck",
+    firstName: "leonhard",
+    lastName: "euler",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "raekwon",
-    lastName: "chef",
+    firstName: "srinivasa",
+    lastName: "ramanujan",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "dirt",
-    lastName: "mcgirt",
+    firstName: "blaise",
+    lastName: "pascal",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "cappa",
-    lastName: "donna",
+    firstName: "ada",
+    lastName: "lovelace",
     team: {
-      name: "Wu Tang Clan"
+      name: "Maths"
     }
   },
   {
-    firstName: "nasty",
-    lastName: "nas",
+    firstName: "brahma",
+    lastName: "gupta",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "notorious",
-    lastName: "BIG",
+    firstName: "eratosthenes",
+    lastName: "cyrene",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "Andre",
-    lastName: "Benjamin",
+    firstName: "fibonacci",
+    lastName: "bonacci",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "big",
-    lastName: "boi",
+    firstName: "hipparchus",
+    lastName: "trig-guy",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "black",
-    lastName: "thought",
+    firstName: "alan",
+    lastName: "turing",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "mos",
-    lastName: "def",
+    firstName: "david",
+    lastName: "hilbert",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "tabib",
-    lastName: "kweli",
+    firstName: "john von",
+    lastName: "neumann",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "jay",
-    lastName: "z",
+    firstName: "claudius",
+    lastName: "ptolemy",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "tupac",
-    lastName: "shakur",
+    firstName: "henri",
+    lastName: "poincaré",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   },
   {
-    firstName: "king",
-    lastName: "los",
+    firstName: "thales",
+    lastName: "miletus",
     team: {
-      name: "Shaolin Soldiers"
+      name: "Maths"
     }
   }
 ]

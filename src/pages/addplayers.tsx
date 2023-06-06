@@ -26,7 +26,7 @@ export default function AddPlayers<AddPlayersProps>() {
     // }
   }
   const addPlayers = (players: any) => {
-    console.log(assignAttributesToPlayers([testPlayer]))
+    console.log(assignAttributesToPlayers([players]))
     createPlayers({ variables: { PlayerInput: assignAttributesToPlayers([testPlayer]) } })
   }
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
