@@ -4,141 +4,101 @@ export const players = [
   {
     firstName: "pythagoras",
     lastName: "samos",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "euclid",
     lastName: "geometry-dad",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "issac",
     lastName: "newton",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "aryabhata",
     lastName: "i",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "archimedes",
     lastName: "syracuse",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "carl",
     lastName: "gauss",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "leonhard",
     lastName: "euler",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "srinivasa",
     lastName: "ramanujan",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "blaise",
     lastName: "pascal",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "ada",
     lastName: "lovelace",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "brahma",
     lastName: "gupta",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "eratosthenes",
     lastName: "cyrene",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "fibonacci",
     lastName: "bonacci",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "hipparchus",
     lastName: "trig-guy",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "alan",
     lastName: "turing",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "david",
     lastName: "hilbert",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "john von",
     lastName: "neumann",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "claudius",
     lastName: "ptolemy",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "henri",
     lastName: "poincaré",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   },
   {
     firstName: "thales",
     lastName: "miletus",
-    team: {
-      name: "Maths"
-    }
+    team: "Maths"
   }
 ]
