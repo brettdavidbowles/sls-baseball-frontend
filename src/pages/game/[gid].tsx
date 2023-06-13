@@ -22,7 +22,8 @@ interface GameProps {
   homeTeam: Team,
   awayTeam: Team,
   league: League,
-  lineups: Lineup[]
+  lineups: Lineup[],
+  isPast: boolean
 }
 
 export default function Game(game: GameProps) {
@@ -31,49 +32,61 @@ export default function Game(game: GameProps) {
   const isMobile = useSelector(selectIsMobile)
 
   const visitorScores = useMemo(() => {
-    return game.halfInnings.filter(halfInning => !halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
+    return game?.halfInnings?.filter(halfInning => !halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
   }, [game.halfInnings])
   const homeScores = useMemo(() => {
-    return game.halfInnings.filter(halfInning => halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
+    return game?.halfInnings?.filter(halfInning => halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
   }, [game.halfInnings])
   const totalInnings = useMemo(() => {
-    return [...game.halfInnings]?.pop()?.inning || 0
+    if (game?.halfInnings?.length) {
+      return [...game?.halfInnings]?.pop()?.inning
+    } else {
+      return 0
+    }
   }, [game.halfInnings])
 
+  const scoreBoard = () => {
+    if (game.isPast) {
+      return (
+        <ScoreBoard
+          visitorScores={visitorScores}
+          homeScores={homeScores}
+          visitorHits={game.awayTeamTotalHits}
+          homeHits={game.homeTeamTotalHits}
+          totalInnings={totalInnings}
+          homeErrors={game.homeTeamTotalErrors}
+          visitorErrors={game.awayTeamTotalErrors}
+          visitorName={game.awayTeam.name}
+          homeName={game.homeTeam.name}
+        />
+      )
+    }
+  }
+  if (!game) return (<div>loading...</div>)
   return (
     <div className="py-8">
       <h1>Game {gid}</h1>
       <h2>
         <Link
-          key={game.awayTeam.id}
-          href={`/team/${game.awayTeam.id}`}
+          key={game.awayTeam?.id}
+          href={`/team/${game.awayTeam?.id}`}
           className="hover:text-bb-tan"
         >
-          {game.awayTeam.name}
+          {game.awayTeam?.name}
         </Link>
         &nbsp;vs&nbsp;
         <Link
-          key={game.homeTeam.id}
-          href={`/team/${game.homeTeam.id}`}
+          key={game.homeTeam?.id}
+          href={`/team/${game.homeTeam?.id}`}
           className="hover:text-bb-tan"
         >
-          {game.homeTeam.name}
+          {game.homeTeam?.name}
         </Link>
       </h2>
-      <ScoreBoard
-        visitorScores={visitorScores}
-        homeScores={homeScores}
-        visitorHits={game.awayTeamTotalHits}
-        homeHits={game.homeTeamTotalHits}
-        totalInnings={totalInnings}
-        homeErrors={game.homeTeamTotalErrors}
-        visitorErrors={game.awayTeamTotalErrors}
-        visitorName={game.awayTeam.name}
-        homeName={game.homeTeam.name}
-      />
+      {scoreBoard()}
 
       <div className={`${!isMobile ? 'flex' : 'block'}`}>
-        {game.lineups.map((lineup, index) => (
+        {game.lineups?.map((lineup, index) => (
           <LineupCard key={index} lineup={lineup} />
         ))}
       </div>
@@ -85,12 +98,12 @@ export async function getServerSideProps({ query }: { query: { gid: string } }) 
   const { data } = await client.query({
     query: GetGamePage,
     variables: {
-      pk: parseInt(query.gid)
+      id: query.gid
     }
   })
   return {
     props: {
-      ...data.gameByPk
+      ...data.gameById
     }
   }
 }

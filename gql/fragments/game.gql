@@ -13,6 +13,7 @@ fragment GameData on Game {
     id
     name
   }
+  isPast
 }
 
 fragment LineupData on Game {
