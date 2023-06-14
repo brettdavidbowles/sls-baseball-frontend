@@ -7,6 +7,7 @@ export type Team = {
   id: number;
   name: string;
   players: Player[];
+  managers: Manager[];
 }
 
 export type Game = {
@@ -15,6 +16,10 @@ export type Game = {
   homeTeam: Team;
   awayTeam: Team;
   league: League;
+}
+
+export interface Manager {
+  id: string
 }
 
 export type AtBat = {

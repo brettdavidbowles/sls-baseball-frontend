@@ -3,11 +3,22 @@ import Link from 'next/link'
 
 interface LineupCardProps {
   lineup: Lineup
+  userId: string
 }
 
 const removeUnderscore = (str: string) => str.replace(/_/g, ' ')
 
+
 export default function LineupCard(props: LineupCardProps) {
+  const editLink = () => {
+    if (props.lineup.team.managers.some(({ id }) => id === props.userId)) {
+      return (
+        <Link href={`/lineup/edit/${props.lineup.id}`}>
+          <span className="hover:text-bb-tan font-bold">(Edit)</span>
+        </Link>
+      )
+    }
+  }
   return (
     <div className='w-full px-4'>
       <h2 className='py-4'>
@@ -17,7 +28,7 @@ export default function LineupCard(props: LineupCardProps) {
           className="hover:text-bb-tan"
         >{props.lineup.team.name}
         </Link>
-        &nbsp;Lineup:
+        &nbsp;Lineup {editLink()}:
       </h2>
       {
         props.lineup.players.slice(1).map((lineupPlayer: LineupPlayer) => (

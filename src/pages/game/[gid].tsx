@@ -8,8 +8,9 @@ import { useMemo } from 'react'
 import LineupCard from '@/components/LineupCard'
 import { useSelector } from 'react-redux'
 import { selectIsMobile } from 'store/windowSlice'
+import { GetServerSidePropsContext } from "next"
 
-interface GameProps {
+interface GamePageProps {
   id: number,
   homeTeamTotalRuns: number,
   awayTeamTotalRuns: number,
@@ -23,87 +24,95 @@ interface GameProps {
   awayTeam: Team,
   league: League,
   lineups: Lineup[],
-  isPast: boolean
+  isPast: boolean,
+  userId: string
 }
 
-export default function Game(game: GameProps) {
+export default function Game(props: GamePageProps) {
   const router = useRouter()
   const { gid } = router.query
   const isMobile = useSelector(selectIsMobile)
 
   const visitorScores = useMemo(() => {
-    return game?.halfInnings?.filter(halfInning => !halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
-  }, [game.halfInnings])
+    return props?.halfInnings?.filter(halfInning => !halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
+  }, [props.halfInnings])
   const homeScores = useMemo(() => {
-    return game?.halfInnings?.filter(halfInning => halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
-  }, [game.halfInnings])
+    return props?.halfInnings?.filter(halfInning => halfInning.homeTeamAtBat).map(({ rbis }) => rbis)
+  }, [props.halfInnings])
   const totalInnings = useMemo(() => {
-    if (game?.halfInnings?.length) {
-      return [...game?.halfInnings]?.pop()?.inning
+    if (props?.halfInnings?.length) {
+      return [...props?.halfInnings]?.pop()?.inning
     } else {
       return 0
     }
-  }, [game.halfInnings])
+  }, [props.halfInnings])
 
   const scoreBoard = () => {
-    if (game.isPast) {
+    if (props.isPast) {
       return (
         <ScoreBoard
           visitorScores={visitorScores}
           homeScores={homeScores}
-          visitorHits={game.awayTeamTotalHits}
-          homeHits={game.homeTeamTotalHits}
+          visitorHits={props.awayTeamTotalHits}
+          homeHits={props.homeTeamTotalHits}
           totalInnings={totalInnings}
-          homeErrors={game.homeTeamTotalErrors}
-          visitorErrors={game.awayTeamTotalErrors}
-          visitorName={game.awayTeam.name}
-          homeName={game.homeTeam.name}
+          homeErrors={props.homeTeamTotalErrors}
+          visitorErrors={props.awayTeamTotalErrors}
+          visitorName={props.awayTeam.name}
+          homeName={props.homeTeam.name}
         />
       )
     }
   }
-  if (!game) return (<div>loading...</div>)
   return (
     <div className="py-8">
       <h1>Game {gid}</h1>
       <h2>
         <Link
-          key={game.awayTeam?.id}
-          href={`/team/${game.awayTeam?.id}`}
+          key={props.awayTeam?.id}
+          href={`/team/${props.awayTeam?.id}`}
           className="hover:text-bb-tan"
         >
-          {game.awayTeam?.name}
+          {props.awayTeam?.name}
         </Link>
         &nbsp;vs&nbsp;
         <Link
-          key={game.homeTeam?.id}
-          href={`/team/${game.homeTeam?.id}`}
+          key={props.homeTeam?.id}
+          href={`/team/${props.homeTeam?.id}`}
           className="hover:text-bb-tan"
         >
-          {game.homeTeam?.name}
+          {props.homeTeam?.name}
         </Link>
       </h2>
       {scoreBoard()}
 
       <div className={`${!isMobile ? 'flex' : 'block'}`}>
-        {game.lineups?.map((lineup, index) => (
-          <LineupCard key={index} lineup={lineup} />
+        {props.lineups?.map((lineup, index) => (
+          <LineupCard key={index} lineup={lineup} userId={props.userId} />
         ))}
       </div>
     </div>
   )
 }
 
-export async function getServerSideProps({ query }: { query: { gid: string } }) {
+export async function getServerSideProps({ query, req }: GetServerSidePropsContext) {
+  const cookie = req.headers.cookie
   const { data } = await client.query({
     query: GetGamePage,
     variables: {
       id: query.gid
+    },
+    fetchPolicy: 'network-only',
+    context: {
+      headers: {
+        cookie
+      }
     }
   })
   return {
     props: {
-      ...data.gameById
+      ...data.gameById,
+      userId: data.auth.id || null
     }
   }
 }

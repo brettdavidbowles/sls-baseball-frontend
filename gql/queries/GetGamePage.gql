@@ -20,4 +20,7 @@ query GetGamePage(
       homeTeamAtBat
     }
   }
+  auth {
+    id
+  }
 }
