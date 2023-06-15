@@ -1,0 +1,10 @@
+query GetLineupById($id: String!) {
+  lineupById(id: $id) {
+     team {
+      name
+    }
+    opponent{
+      name
+    }
+  }
+}
