@@ -1,13 +1,11 @@
 import { Lineup, LineupPlayer } from "types/gqlTypes"
 import Link from 'next/link'
+import { removeUnderscore } from "utils/removeUnderscore"
 
 interface LineupCardProps {
   lineup: Lineup
   userId: string
 }
-
-const removeUnderscore = (str: string) => str.replace(/_/g, ' ')
-
 
 export default function LineupCard(props: LineupCardProps) {
   const editLink = () => {

@@ -86,4 +86,5 @@ export type Lineup = {
   id: number
   team: Team
   players: LineupPlayer[]
+  __typename?: 'LineupPlayer'
 }
