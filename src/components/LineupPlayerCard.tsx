@@ -15,12 +15,14 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
     )
   }
   return (
-    <div className='capitalize flex justify-between bg-bb-black py-1 px-2 border-t border-b cursor-grab'>
-      <div>
-        <span className="mr-4">
+    <div className="capitalize flex justify-between bg-bb-black py-1 px-2 border-t border-b cursor-grab">
+      <div className="flex">
+        <div className="mr-4">
           {props.spotInLineup}
-        </span>
-        {props.lineupPlayer.player.firstName} {props.lineupPlayer.player.lastName}
+        </div>
+        <div>
+          {`${props.lineupPlayer.player.firstName} ${props.lineupPlayer.player.lastName}`}
+        </div>
       </div>
       <span>
         {removeUnderscore(props.lineupPlayer.position)}

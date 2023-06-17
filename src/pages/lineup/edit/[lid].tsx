@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router'
 import client from "apollo-client"
 import { GetServerSidePropsContext } from "next"
@@ -6,7 +6,6 @@ import { GetLineupById } from 'gql/queries/GetLineupById.gql'
 import { LineupPlayer, Team, Game } from 'types/gqlTypes'
 import { formatDateTime } from 'utils/formatDateTime'
 import Sortable from 'sortablejs'
-import { removeUnderscore } from "utils/removeUnderscore"
 import LineupPlayerCard from '@/components/LineupPlayerCard';
 
 interface EditLineupPageProps {
@@ -17,19 +16,46 @@ interface EditLineupPageProps {
 }
 
 export default function EditLineup(props: EditLineupPageProps) {
-  console.log(props)
   const router = useRouter()
   const { lid } = router.query
   const lineup = useRef(null)
+  const [lineupOrder, setLineupOrder] = useState<LineupPlayer[]>([...props.players.filter(player => player.position !== 'pitcher')])
   useEffect(() => {
-    const sortable = Sortable.create(lineup.current)
-  }, [])
+    const sortable = Sortable.create(lineup.current,
+      {
+        onEnd: ({ newIndex, oldIndex }: { newIndex: number, oldIndex: number }) => {
+          if (newIndex === oldIndex) return
+          const newOrder = lineupOrder.map((player, index) => {
+            if (newIndex > oldIndex) {
+              if (index === oldIndex) {
+                return lineupOrder[oldIndex + 1]
+              } else if (index === newIndex) {
+                return lineupOrder[oldIndex]
+              } else if (index > oldIndex && index <= newIndex) {
+                return lineupOrder[index + 1]
+              } else {
+                return player
+              }
+            } else {
+              if (index === oldIndex) {
+                return lineupOrder[oldIndex - 1]
+              } else if (index === newIndex) {
+                return lineupOrder[oldIndex]
+              } else if (index < oldIndex && index >= newIndex) {
+                return lineupOrder[index - 1]
+              } else {
+                return player
+              }
+            }
+          })
+          setLineupOrder(newOrder)
+        }
+      })
+    return () => sortable.destroy()
+  })
   const pitcher = useMemo(() => {
     // need constants
     return props.players.find(player => player.position === 'pitcher')
-  }, [props.players])
-  const batters = useMemo(() => {
-    return props.players.filter(player => player.position !== 'pitcher')
   }, [props.players])
 
   return (
@@ -37,7 +63,7 @@ export default function EditLineup(props: EditLineupPageProps) {
       <h1>Edit {props.team.name} Lineup</h1>
       <h2>for game on {formatDateTime(props.game.dateTime, true)} against {props.opponent.name}</h2>
       <ul ref={lineup}>
-        {batters.map((lineupPlayer, index) => (
+        {lineupOrder.map((lineupPlayer, index) => (
           <li key={lineupPlayer.player.id}>
             <LineupPlayerCard
               spotInLineup={index + 1}
@@ -49,6 +75,7 @@ export default function EditLineup(props: EditLineupPageProps) {
       <div className="my-4">
         <LineupPlayerCard lineupPlayer={pitcher} />
       </div>
+
     </div>
   )
 }
