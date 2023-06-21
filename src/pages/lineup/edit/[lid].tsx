@@ -1,12 +1,14 @@
 import { useRef, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router'
 import client from "apollo-client"
+import { useMutation } from "@apollo/client"
 import { GetServerSidePropsContext } from "next"
 import { GetLineupById } from 'gql/queries/GetLineupById.gql'
 import { LineupPlayer, Team, Game } from 'types/gqlTypes'
 import { formatDateTime } from 'utils/formatDateTime'
 import Sortable from 'sortablejs'
 import LineupPlayerCard from '@/components/LineupPlayerCard';
+import { UpdateLineup } from 'gql/mutations/UpdateLineup.gql'
 
 interface EditLineupPageProps {
   team: Team
@@ -16,6 +18,7 @@ interface EditLineupPageProps {
 }
 
 export default function EditLineup(props: EditLineupPageProps) {
+  console.log(props)
   const router = useRouter()
   const { lid } = router.query
   const lineup = useRef(null)
@@ -57,25 +60,46 @@ export default function EditLineup(props: EditLineupPageProps) {
     // need constants
     return props.players.find(player => player.position === 'pitcher')
   }, [props.players])
+  const [updateLineup, { data }] = useMutation(UpdateLineup)
+  const saveLienup = () => {
+    const players = lineupOrder.map(({ player, position }, index) => ({
+      id: player.id,
+      position,
+      battingOrderNumber: index + 1
+    }))
+    console.log(players)
+    //   updateLineup({
+    //     variables: {
+    //       id: lid,
+    //       players:
+  }
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    saveLienup()
+  }
 
   return (
     <div>
       <h1>Edit {props.team.name} Lineup</h1>
       <h2>for game on {formatDateTime(props.game.dateTime, true)} against {props.opponent.name}</h2>
-      <ul ref={lineup}>
-        {lineupOrder.map((lineupPlayer, index) => (
-          <li key={lineupPlayer.player.id}>
-            <LineupPlayerCard
-              spotInLineup={index + 1}
-              lineupPlayer={lineupPlayer}
-            />
-          </li>
-        ))}
-      </ul>
-      <div className="my-4">
-        <LineupPlayerCard lineupPlayer={pitcher} />
+      <div className='max-w-lg'>
+        <ul ref={lineup}>
+          {lineupOrder.map((lineupPlayer, index) => (
+            <li key={lineupPlayer.player.id}>
+              <LineupPlayerCard
+                spotInLineup={index + 1}
+                lineupPlayer={lineupPlayer}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className="my-4">
+          <LineupPlayerCard lineupPlayer={pitcher} />
+        </div>
       </div>
-
+      <button onClick={handleClick}>
+        Save Lineup
+      </button>
     </div>
   )
 }

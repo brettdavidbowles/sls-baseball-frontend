@@ -1,0 +1,21 @@
+mutation UpdateLineup (
+  $id: ID!
+  $players: [LineupPlayerInput!]!
+) {
+  updateLineup (
+    id: $id
+    players: $players
+  ) {
+    id
+    players {
+      id
+      player {
+        id
+        lastName
+        firstName
+      }
+      position
+      battingOrderNumber
+    }
+  }
+}
