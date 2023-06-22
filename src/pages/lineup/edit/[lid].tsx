@@ -18,7 +18,6 @@ interface EditLineupPageProps {
 }
 
 export default function EditLineup(props: EditLineupPageProps) {
-  console.log(props)
   const router = useRouter()
   const { lid } = router.query
   const lineup = useRef(null)
@@ -62,16 +61,24 @@ export default function EditLineup(props: EditLineupPageProps) {
   }, [props.players])
   const [updateLineup, { data }] = useMutation(UpdateLineup)
   const saveLienup = () => {
+    if (!pitcher) return // need to handle this
     const players = lineupOrder.map(({ player, position }, index) => ({
       id: player.id,
       position,
       battingOrderNumber: index + 1
     }))
-    console.log(players)
-    //   updateLineup({
-    //     variables: {
-    //       id: lid,
-    //       players:
+    players.unshift({
+      id: pitcher.player.id,
+      position: 'pitcher',
+      battingOrderNumber: 0
+    })
+    updateLineup({
+      variables: {
+        id: lid,
+        players: players
+      }
+      // change this to update catche maybe? might not matter because it's network only
+    })
   }
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()

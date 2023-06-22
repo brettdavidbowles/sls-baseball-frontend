@@ -11,6 +11,15 @@ query GetLineupById($id: String!) {
         id
         lastName
         firstName
+        attributes {
+          composure
+          endurance
+          intellect
+          reflexes
+          speed
+          strength
+          willpower
+        }
       }
     	position
       battingOrderNumber
