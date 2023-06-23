@@ -15,13 +15,18 @@ interface EditLineupPageProps {
   opponent: Team
   players: LineupPlayer[]
   game: Game
+  userId?: string
 }
 
 export default function EditLineup(props: EditLineupPageProps) {
+  console.log(props.team.managers.map(manager => manager.id))
   const router = useRouter()
   const { lid } = router.query
   const lineup = useRef(null)
   const [lineupOrder, setLineupOrder] = useState<LineupPlayer[]>([...props.players.filter(player => player.position !== 'pitcher')])
+
+  // need to add redirect if logout
+
   useEffect(() => {
     const sortable = Sortable.create(lineup.current,
       {
@@ -77,7 +82,8 @@ export default function EditLineup(props: EditLineupPageProps) {
         id: lid,
         players: players
       }
-      // change this to update catche maybe? might not matter because it's network only
+      // change this to update cache maybe? might not matter because it's network only
+      // needs error handling
     })
   }
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -125,10 +131,17 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
       }
     }
   })
+  if (!data.lineupById?.team?.managers?.map((manager: { id: string }) => manager.id)?.includes(data.auth?.id)) {
+    return {
+      redirect: {
+        destination: '/login'
+      }
+    }
+  }
   return {
     props: {
       ...data.lineupById,
-      // userId: data.auth.id || null
+      userId: data.auth.id || null
     }
   }
 }

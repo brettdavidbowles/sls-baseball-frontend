@@ -55,7 +55,7 @@ export type Player = {
   lastName: string
   team: Team
   at_bats: AtBat[]
-  attributes?: PlayerAttribute
+  attributes: PlayerAttribute
 }
 
 export type PlayerAttribute = {
