@@ -31,6 +31,20 @@ query GetLineupById($id: String!) {
       dateTime
     }
   }
+  benchByLineupId(id: $id) {
+    id
+    lastName
+    firstName
+    attributes {
+      composure
+      endurance
+      intellect
+      reflexes
+      speed
+      strength
+      willpower
+    }
+  }
   auth {
     id
   }

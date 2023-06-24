@@ -4,7 +4,7 @@ import client from "apollo-client"
 import { useMutation } from "@apollo/client"
 import { GetServerSidePropsContext } from "next"
 import { GetLineupById } from 'gql/queries/GetLineupById.gql'
-import { LineupPlayer, Team, Game } from 'types/gqlTypes'
+import { LineupPlayer, Team, Game, Player } from 'types/gqlTypes'
 import { formatDateTime } from 'utils/formatDateTime'
 import Sortable from 'sortablejs'
 import LineupPlayerCard from '@/components/LineupPlayerCard';
@@ -16,16 +16,19 @@ interface EditLineupPageProps {
   players: LineupPlayer[]
   game: Game
   userId?: string
+  bench: Player[]
 }
 
 export default function EditLineup(props: EditLineupPageProps) {
-  console.log(props.team.managers.map(manager => manager.id))
+  console.log(props.bench)
   const router = useRouter()
   const { lid } = router.query
   const lineup = useRef(null)
   const [lineupOrder, setLineupOrder] = useState<LineupPlayer[]>([...props.players.filter(player => player.position !== 'pitcher')])
+  const [bench, setBench] = useState<Player[]>(props.bench)
+  const [stagedSubstitute, setStagedSubstitute] = useState<LineupPlayer | null>(null)
 
-  // need to add redirect if logout
+  // TODO need to add redirect if logout
 
   useEffect(() => {
     const sortable = Sortable.create(lineup.current,
@@ -95,24 +98,41 @@ export default function EditLineup(props: EditLineupPageProps) {
     <div>
       <h1>Edit {props.team.name} Lineup</h1>
       <h2>for game on {formatDateTime(props.game.dateTime, true)} against {props.opponent.name}</h2>
-      <div className='max-w-lg'>
-        <ul ref={lineup}>
-          {lineupOrder.map((lineupPlayer, index) => (
-            <li key={lineupPlayer.player.id}>
-              <LineupPlayerCard
-                spotInLineup={index + 1}
-                lineupPlayer={lineupPlayer}
-              />
-            </li>
-          ))}
-        </ul>
-        <div className="my-4">
-          <LineupPlayerCard lineupPlayer={pitcher} />
+      <div className='flex justify-between w-full my-4'>
+        <div className='w-1/3'>
+          <h2 className="my-4">Starting Lineup</h2>
+          <ul ref={lineup}>
+            {lineupOrder.map((lineupPlayer, index) => (
+              <li key={lineupPlayer.player.id}>
+                <LineupPlayerCard
+                  spotInLineup={index + 1}
+                  lineupPlayer={lineupPlayer}
+                  showSubButton={stagedSubstitute === lineupPlayer || !stagedSubstitute}
+                />
+              </li>
+            ))}
+          </ul>
+          <div className="my-4">
+            <LineupPlayerCard lineupPlayer={pitcher} />
+          </div>
+          <button onClick={handleClick}>
+            Save Lineup
+          </button>
+        </div>
+        <div className='w-1/3'>
+          <h2 className="my-4">Bench</h2>
+          <ul>
+            {bench.map((player, index) => (
+              <li key={player.id}>
+                <LineupPlayerCard
+                  player={player}
+                  showSubButton={!!stagedSubstitute}
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-      <button onClick={handleClick}>
-        Save Lineup
-      </button>
     </div>
   )
 }
@@ -140,8 +160,9 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
   }
   return {
     props: {
+      userId: data.auth.id || null,
       ...data.lineupById,
-      userId: data.auth.id || null
+      bench: data.benchByLineupId
     }
   }
 }

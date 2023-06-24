@@ -1,58 +1,104 @@
-import { LineupPlayer } from "types/gqlTypes"
+import { LineupPlayer, Player } from "types/gqlTypes"
 import { removeUnderscore } from "utils/removeUnderscore"
 import Chevron from "./ImageComponents/chevron"
 import { useState, useMemo } from 'react'
 
 interface LineupPlayerCardProps {
-  lineupPlayer: LineupPlayer
-  spotInLineup: number
+  lineupPlayer?: LineupPlayer
+  player?: Player
+  spotInLineup?: number
+  showSubButton: boolean
+  // copilot are you there?
+
+  setStagedSubstitute: 
 }
 
 export default function LineupPlayerCard(props: LineupPlayerCardProps) {
   const [expanded, setExpanded] = useState(false)
-  console.log(props.lineupPlayer)
+
   const handleClick = () => {
     setExpanded(!expanded)
-    console.log('okokoko')
   }
 
+  const player = useMemo(() => {
+    if (props.lineupPlayer) {
+      return props.lineupPlayer.player
+    } else {
+      return props.player
+    }
+  }, [props.lineupPlayer, props.player])
+
   const filteredAttributeObject = useMemo(() => {
+    if (!player) return {}
     return Object.fromEntries(
-      Object.entries(props.lineupPlayer.player.attributes)
+      Object.entries(player.attributes)
         .filter(([key]) => !key.includes("__typename"))
     )
-  }, [props.lineupPlayer.player.attributes])
+  }, [player])
 
+  const spotInLineup = () => {
+    if (!props.spotInLineup) return null
+    return (
+      <div className="mr-4">
+        {props.spotInLineup}
+      </div>
+    )
+  }
+  const position = () => {
+    if (!props.lineupPlayer) return null
+    return (
+      <span>
+        {removeUnderscore(props.lineupPlayer.position)}
+      </span>
+    )
+  }
+
+  const subButton = () => {
+    if (!props.showSubButton) {
+      return (
+        <div className="w-28 m-1 h-6"></div>
+      )
+    }
+    return (
+      <button className={`px-4 flex ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center bg-bb-black hover:bg-bb-peach hover:text-bb-black rounded m-1 border border-bb-black`}>
+        <span className="px-2 uppercase">Sub</span>
+        <Chevron classes={`w-2 h-auto ${props.player ? 'rotate-0' : 'rotate-180'}`} />
+      </button>
+    )
+  }
+
+  if (!player) return null
   return (
-    <div className="bg-bb-black border-t border-b">
-      <div className="w-full flex justify-between space-x-3">
-        <div className="capitalize flex justify-between w-full py-1 px-2 cursor-grab mr-4">
-          <div className="flex">
-            <div className="mr-4">
-              {props.spotInLineup}
+    <div className={`flex w-full ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center`}>
+      <div className="bg-bb-black border-t border-b w-full">
+        <div className="w-full flex justify-between space-x-3">
+          <div className={`capitalize flex justify-between w-full py-1 px-2 ${props.lineupPlayer ? 'cursor-grab' : 'cursor-default'} mr-4`}>
+            <div className={`flex ${props.lineupPlayer?.position !== 'pitcher' ? '' : 'ml-7'}`}>
+              {spotInLineup()}
+              <div>
+                {`${player.firstName} ${player.lastName}`}
+              </div>
             </div>
-            <div>
-              {`${props.lineupPlayer.player.firstName} ${props.lineupPlayer.player.lastName}`}
-            </div>
+            {position()}
           </div>
-          <span>
-            {removeUnderscore(props.lineupPlayer.position)}
-          </span>
+          <button
+            onClick={handleClick}
+            className="py-2 px-4"
+          >
+            <Chevron classes={`w-2 h-auto transition-all duration-300 ${expanded ? 'rotate-90' : '-rotate-90'}`} />
+          </button>
         </div>
-        <button
-          onClick={handleClick}>
-          <Chevron classes={`w-2 h-auto transition-all duration-300 ${expanded ? 'rotate-90' : '-rotate-90'} -mx-4`} />
-        </button>
-      </div>
-      <div className={`bg-bb-black px-8 capitalize border-b border-bb-black overflow-hidden transition-all duration-300 ${expanded ? 'visible h-48' : 'invisible h-0'}`} >
-        <div className="flex flex-col">
-          {Object.keys(filteredAttributeObject).map((attribute, index) => (
-            <div key={attribute}>
-              {attribute}: {Object.values(filteredAttributeObject)[index]}
-            </div>
-          ))}
+        <div className={`bg-bb-black px-8 capitalize border-b border-bb-black overflow-hidden transition-all duration-300 ${expanded ? 'visible h-48' : 'invisible h-0'}`} >
+          <div className="flex flex-col">
+            {Object.keys(filteredAttributeObject).map((attribute, index) => (
+              <div key={attribute}>
+                {attribute}: {Object.values(filteredAttributeObject)[index]}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+      {subButton()}
     </div>
   )
 }
