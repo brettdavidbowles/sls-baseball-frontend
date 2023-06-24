@@ -8,9 +8,7 @@ interface LineupPlayerCardProps {
   player?: Player
   spotInLineup?: number
   showSubButton: boolean
-  // copilot are you there?
-
-  setStagedSubstitute: 
+  setStagedSubstitute: (player: LineupPlayer | undefined) => void
 }
 
 export default function LineupPlayerCard(props: LineupPlayerCardProps) {
@@ -59,12 +57,19 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
         <div className="w-28 m-1 h-6"></div>
       )
     }
-    return (
-      <button className={`px-4 flex ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center bg-bb-black hover:bg-bb-peach hover:text-bb-black rounded m-1 border border-bb-black`}>
-        <span className="px-2 uppercase">Sub</span>
-        <Chevron classes={`w-2 h-auto ${props.player ? 'rotate-0' : 'rotate-180'}`} />
-      </button>
-    )
+    if (props.lineupPlayer) {
+      return (
+        <button
+          onClick={() => props.setStagedSubstitute(props.lineupPlayer)}
+          className={`px-4 flex ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center bg-bb-black hover:bg-bb-peach hover:text-bb-black rounded m-1 border border-bb-black`}
+        >
+          <span className="px-2 uppercase">Sub</span>
+          <Chevron classes={`w-2 h-auto ${props.player ? 'rotate-0' : 'rotate-180'}`} />
+        </button>
+      )
+    } else {
+      return null
+    }
   }
 
   if (!player) return null

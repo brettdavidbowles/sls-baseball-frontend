@@ -20,13 +20,12 @@ interface EditLineupPageProps {
 }
 
 export default function EditLineup(props: EditLineupPageProps) {
-  console.log(props.bench)
   const router = useRouter()
   const { lid } = router.query
   const lineup = useRef(null)
   const [lineupOrder, setLineupOrder] = useState<LineupPlayer[]>([...props.players.filter(player => player.position !== 'pitcher')])
   const [bench, setBench] = useState<Player[]>(props.bench)
-  const [stagedSubstitute, setStagedSubstitute] = useState<LineupPlayer | null>(null)
+  const [stagedSubstitute, setStagedSubstitute] = useState<LineupPlayer | undefined>()
 
   // TODO need to add redirect if logout
 
@@ -93,6 +92,9 @@ export default function EditLineup(props: EditLineupPageProps) {
     event.preventDefault()
     saveLienup()
   }
+  const stagePlayer = (player: LineupPlayer) => {
+    setStagedSubstitute(player)
+  }
 
   return (
     <div>
@@ -108,12 +110,17 @@ export default function EditLineup(props: EditLineupPageProps) {
                   spotInLineup={index + 1}
                   lineupPlayer={lineupPlayer}
                   showSubButton={stagedSubstitute === lineupPlayer || !stagedSubstitute}
+                  setStagedSubstitute={setStagedSubstitute}
                 />
               </li>
             ))}
           </ul>
           <div className="my-4">
-            <LineupPlayerCard lineupPlayer={pitcher} />
+            <LineupPlayerCard
+              lineupPlayer={pitcher}
+              showSubButton={stagedSubstitute === pitcher || !stagedSubstitute}
+              setStagedSubstitute={setStagedSubstitute}
+            />
           </div>
           <button onClick={handleClick}>
             Save Lineup
