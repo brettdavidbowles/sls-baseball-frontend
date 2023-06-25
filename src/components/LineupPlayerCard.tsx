@@ -8,7 +8,9 @@ interface LineupPlayerCardProps {
   player?: Player
   spotInLineup?: number
   showSubButton: boolean
-  setStagedSubstitute: (player: LineupPlayer | undefined) => void
+  showCancelSubButton?: boolean
+  setStagedSubstitute?: (player: LineupPlayer | undefined) => void
+  substitutePlayer?: (player: Player) => void
 }
 
 export default function LineupPlayerCard(props: LineupPlayerCardProps) {
@@ -51,30 +53,47 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
     )
   }
 
+  const substitute = () => {
+    if (props.lineupPlayer && props.setStagedSubstitute) {
+      props.setStagedSubstitute(props.lineupPlayer)
+    }
+    if (props.player && props.substitutePlayer) {
+      props.substitutePlayer(props.player)
+    }
+  }
+
   const subButton = () => {
     if (!props.showSubButton) {
       return (
-        <div className="w-28 m-1 h-6"></div>
+        <div className="w-[120px] my-1 h-6"></div>
       )
     }
-    if (props.lineupPlayer) {
+    if (player) {
       return (
         <button
-          onClick={() => props.setStagedSubstitute(props.lineupPlayer)}
+          onClick={() => substitute()}
           className={`px-4 flex ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center bg-bb-black hover:bg-bb-peach hover:text-bb-black rounded m-1 border border-bb-black`}
         >
           <span className="px-2 uppercase">Sub</span>
           <Chevron classes={`w-2 h-auto ${props.player ? 'rotate-0' : 'rotate-180'}`} />
         </button>
       )
-    } else {
-      return null
+    }
+  }
+
+  const cancelSubButton = () => {
+    if (props.showCancelSubButton && props.setStagedSubstitute) {
+      return (
+        <button onClick={() => props.setStagedSubstitute(undefined)}>
+          Cancel
+        </button>
+      )
     }
   }
 
   if (!player) return null
   return (
-    <div className={`flex w-full ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center`}>
+    <div className={`flex w-full ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center whitespace-nowrap md:whitespace-normal`}>
       <div className="bg-bb-black border-t border-b w-full">
         <div className="w-full flex justify-between space-x-3">
           <div className={`capitalize flex justify-between w-full py-1 px-2 ${props.lineupPlayer ? 'cursor-grab' : 'cursor-default'} mr-4`}>
@@ -90,7 +109,7 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
             onClick={handleClick}
             className="py-2 px-4"
           >
-            <Chevron classes={`w-2 h-auto transition-all duration-300 ${expanded ? 'rotate-90' : '-rotate-90'}`} />
+            <Chevron classes={`w-2 h-auto transition-transform duration-300 ${expanded ? 'rotate-90' : '-rotate-90'}`} />
           </button>
         </div>
         <div className={`bg-bb-black px-8 capitalize border-b border-bb-black overflow-hidden transition-all duration-300 ${expanded ? 'visible h-48' : 'invisible h-0'}`} >
@@ -104,6 +123,11 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
         </div>
       </div>
       {subButton()}
+      <div className="relative">
+        <div className="absolute top-4 right-6">
+          {cancelSubButton()}
+        </div>
+      </div>
     </div>
   )
 }
