@@ -2,6 +2,7 @@ import { LineupPlayer, Player } from "types/gqlTypes"
 import { removeUnderscore } from "utils/removeUnderscore"
 import Chevron from "./ImageComponents/chevron"
 import { useState, useMemo } from 'react'
+import { POSITIONS, Position_Key } from "constants/positions"
 
 interface LineupPlayerCardProps {
   lineupPlayer?: LineupPlayer
@@ -46,9 +47,12 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
   }
   const position = () => {
     if (!props.lineupPlayer) return null
+    const getPosition = (position: Position_Key) => {
+      return POSITIONS[position].abbrev
+    }
     return (
       <span>
-        {removeUnderscore(props.lineupPlayer.position)}
+        {getPosition(props.lineupPlayer.position as Position_Key)}
       </span>
     )
   }
@@ -65,7 +69,7 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
   const subButton = () => {
     if (!props.showSubButton) {
       return (
-        <div className={`${props.player ? 'hidden' : 'block'} md:block w-24 px-4 m-1 h-6`}></div>
+        <div className={`${props.player ? 'hidden' : 'block'} transition-none md:block w-24 px-4 m-1 h-6`}></div>
       )
     }
     if (player) {
@@ -102,10 +106,15 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
       <div className="bg-bb-black border-t border-b grow">
         <div className="flex justify-between">
           <div className={`capitalize flex w-full justify-between py-1 px-2 ${props.lineupPlayer ? 'cursor-grab' : 'cursor-default'} pr-4`}>
-            <div className={`${props.lineupPlayer?.position !== 'pitcher' ? '' : 'pl-7'}`}>
-              {spotInLineup()} {player?.firstName} {player?.lastName}
-            </div>
-            {position()}
+            <span className={`${props.lineupPlayer?.position !== 'pitcher' ? '' : 'pl-7'}`}>
+              {spotInLineup()}
+            </span>
+            <span className={`${props.player ? 'pl-16' : 'pl-0'}`}>
+              {player?.lastName}
+            </span>
+            <span className="text-right px-4">
+              {position()}
+            </span>
           </div>
           <button
             onClick={handleClick}
@@ -114,7 +123,8 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
             <Chevron classes={`w-2 h-auto transition-transform duration-300 ${expanded ? 'rotate-90' : '-rotate-90'}`} />
           </button>
         </div>
-        <div className={`bg-bb-black px-8 capitalize border-b border-bb-black overflow-hidden transition-all duration-300 ${expanded ? 'visible h-48' : 'invisible h-0'}`} >
+        <div className={`bg-bb-black px-8 capitalize border-b border-bb-black transition-all duration-300 ${expanded ? 'visible opacity-100 h-56' : 'invisible opacity-0 h-0'}`} >
+          <h3 className="py-2">{player?.firstName} {player?.lastName}:</h3>
           <div className="flex flex-col">
             {Object.keys(filteredAttributeObject).map((attribute, index) => (
               <div key={attribute}>
