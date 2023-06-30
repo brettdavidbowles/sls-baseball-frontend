@@ -24,6 +24,9 @@ fragment LineupData on Game {
       name
       managers {
         id
+        user {
+          id
+        }
       }
     }
     players {

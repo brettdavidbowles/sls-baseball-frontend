@@ -20,6 +20,7 @@ export type Game = {
 
 export interface Manager {
   id: string
+  user: User
 }
 
 export type AtBat = {
@@ -87,4 +88,12 @@ export type Lineup = {
   team: Team
   players: LineupPlayer[]
   __typename?: 'LineupPlayer'
+}
+
+export type User = {
+  id: string
+  email: string
+  firstName: string
+  lastName: string
+  teams: Team[]
 }
