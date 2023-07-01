@@ -8,7 +8,6 @@ interface LineupCardProps {
 }
 
 export default function LineupCard(props: LineupCardProps) {
-  console.log(props)
   const editLink = () => {
     if (props.lineup.team.managers.some(({ user }) => user.id === props.userId)) {
       return (

@@ -10,8 +10,9 @@ export const formatDateTime = (date: string, dateOnly: boolean = false) => {
   const hours = dateObj.getHours()
   const minutes = leadingZero(dateObj.getMinutes())
   const seconds = leadingZero(dateObj.getSeconds())
+  const timezone = dateObj?.toTimeString().match(/\((.+)\)/)?.[1]
   const formattedDate = dateOnly ?
     `${month}/${day}/${year}` :
-    `${month}/${day}/${year} ${hours}:${minutes} UTC`
+    `${month}/${day}/${year} ${hours}:${minutes} (${timezone})`
   return formattedDate
 }

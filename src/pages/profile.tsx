@@ -6,23 +6,30 @@ import Link from "next/link"
 import { formatDateTime } from "utils/formatDateTime"
 
 export default function Profile({ teams, userId, username, games }: { teams: Team[], userId: number, username: string, games: Game[] }) {
-  console.log(games)
+  // const editLink = (game: Game) => {
+  //   if(game.isPast) return
+  //   return (
+  //     <Link href={`/game/${game.id}/edit`}>
+  //   )
+  // }
   return (
     <div>
       <h1 className="capitalize">{username}&apos;s Profile</h1>
-      <h2 className="py-4 text-xl">Teams</h2>
+      <h2 className="py-2 underline text-xl">Teams</h2>
       <div className="flex flex-col">
         {teams.map(team => (
           <Link href={`team/${team.id}`} key={team.id}>{team.name}</Link>
         ))}
       </div>
-      <h2 className="py-4 text-xl">Games</h2>
-      <div className="flex flex-col">
-        {games.map(game => (
-          <Link href={`game/${game.id}`} key={game.id}>
-            {game.awayTeam.name} at {game.homeTeam.name} on {formatDateTime(game.dateTime)}
-          </Link>
-        ))}
+      <div className="py-4">
+        <h2 className="py-2 underline text-xl">Games</h2>
+        <div className="flex flex-col">
+          {games.map(game => (
+            <Link href={`game/${game.id}`} key={game.id}>
+              {game.awayTeam.name} at {game.homeTeam.name} on {formatDateTime(game.dateTime)}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )
