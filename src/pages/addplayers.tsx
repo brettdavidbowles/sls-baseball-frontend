@@ -4,9 +4,9 @@ import { players } from 'constants/firstPlayers.js'
 import React, { MouseEvent } from 'react';
 import { assignAttributesToPlayers } from 'utils/randomAttributes.js'
 
-interface AddPlayersProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>
-}
+// interface AddPlayersProps {
+//   onClick: React.MouseEventHandler<HTMLButtonElement>
+// }
 export default function AddPlayers<AddPlayersProps>() {
 
   const [createPlayers, { data }] = useMutation(CreatePlayers)

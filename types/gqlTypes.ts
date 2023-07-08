@@ -1,20 +1,34 @@
 export type League = {
-  id: number;
-  name: string;
+  id: number
+  name: string
+}
+
+export type Season = {
+  id: number
+  name: string
+  start_date: string
+  end_date: string
 }
 
 export type Team = {
-  id: number;
-  name: string;
-  players: Player[];
+  id: number
+  name: string
+  players: Player[]
+  managers: Manager[]
 }
 
 export type Game = {
-  id: number;
-  dateTime: string;
-  homeTeam: Team;
-  awayTeam: Team;
-  league: League;
+  id: number
+  dateTime: string
+  homeTeam: Team
+  awayTeam: Team
+  league: League
+  isPast: boolean
+}
+
+export interface Manager {
+  id: string
+  user: User
 }
 
 export type AtBat = {
@@ -34,14 +48,14 @@ export type AtBat = {
 }
 
 export type HalfInning = {
-  id: number;
-  inning: number;
-  atBats?: AtBat[];
-  game: Game;
+  id: number
+  inning: number
+  atBats?: AtBat[]
+  game: Game
   homeTeamAtBat: boolean
-  rbis: number;
-  hits: number;
-  errors: number;
+  rbis: number
+  hits: number
+  errors: number
 }
 
 export type Player = {
@@ -50,7 +64,7 @@ export type Player = {
   lastName: string
   team: Team
   at_bats: AtBat[]
-  attributes?: PlayerAttribute
+  attributes: PlayerAttribute
 }
 
 export type PlayerAttribute = {
@@ -81,4 +95,24 @@ export type Lineup = {
   id: number
   team: Team
   players: LineupPlayer[]
+  __typename?: 'LineupPlayer'
+}
+
+export type User = {
+  id: string
+  email: string
+  firstName: string
+  lastName: string
+  teams: Team[]
+}
+
+export type UserGame = {
+  id: number
+  dateTime: string
+  homeTeam: Team
+  awayTeam: Team
+  league: League
+  season: Season
+  isPast: boolean
+  lineupId: number
 }

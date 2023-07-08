@@ -1,9 +1,9 @@
 #import "gql/fragments/game.gql"
 
 query GetGamePage(
-  $pk: ID!
+  $id: String!
 ) {
-  gameByPk(pk: $pk) {
+  gameById(id: $id) {
     ...GameData
     ...LineupData
     homeTeamTotalRuns
@@ -19,5 +19,8 @@ query GetGamePage(
       hits
       homeTeamAtBat
     }
+  }
+  auth {
+    id
   }
 }

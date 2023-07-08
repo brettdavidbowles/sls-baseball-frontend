@@ -13,6 +13,7 @@ fragment GameData on Game {
     id
     name
   }
+  isPast
 }
 
 fragment LineupData on Game {
@@ -21,6 +22,12 @@ fragment LineupData on Game {
     team {
       id
       name
+      managers {
+        id
+        user {
+          id
+        }
+      }
     }
     players {
       id

@@ -1,0 +1,54 @@
+query GetLineupById($id: String!) {
+  lineupById(id: $id) {
+    team {
+      name
+      managers {
+        id
+        user {
+          id
+        }
+      }
+    }
+    opponent{
+      name
+    }
+    players {
+      player {
+        id
+        lastName
+        firstName
+        attributes {
+          composure
+          endurance
+          intellect
+          reflexes
+          speed
+          strength
+          willpower
+        }
+      }
+    	position
+      battingOrderNumber
+    }
+    game {
+      dateTime
+    }
+  }
+  benchByLineupId(id: $id) {
+    id
+    lastName
+    firstName
+    attributes {
+      composure
+      endurance
+      intellect
+      reflexes
+      speed
+      strength
+      willpower
+    }
+  }
+  auth {
+    id
+  }
+}

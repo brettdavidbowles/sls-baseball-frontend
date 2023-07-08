@@ -1,0 +1,27 @@
+query GetProfileData {
+  auth {
+    id
+    username
+  }
+  teamsByUser {
+    id
+    name
+    players {
+      id
+      firstName
+      lastName
+    }
+  }
+  gamesByUser {
+    id
+    dateTime
+    homeTeam {
+      name
+    }
+    awayTeam {
+      name
+    }
+    isPast
+    lineupId
+  }
+}

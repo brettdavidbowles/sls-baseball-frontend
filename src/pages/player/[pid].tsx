@@ -3,7 +3,6 @@ import client from 'apollo-client'
 import { useMemo } from 'react'
 
 export default function Player({ player }: { player: any }) {
-  console.log('player', player)
   const playerAttributes = useMemo(() => {
     return Object.keys(player.attributes)
       .filter(attr => attr !== '__typename')
