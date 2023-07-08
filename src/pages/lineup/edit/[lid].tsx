@@ -33,10 +33,14 @@ export default function EditLineup(props: EditLineupPageProps) {
   // TODO need to add redirect if logout
 
   useEffect(() => {
+    if (!lineup.current) return
     const sortable = Sortable.create(lineup.current,
       {
-        onEnd: ({ newIndex, oldIndex }: { newIndex: number, oldIndex: number }) => {
-          if (newIndex === oldIndex) return
+        // onEnd: ({ newIndex, oldIndex }: { newIndex: number, oldIndex: number }) => {
+        onEnd: function (ev: Sortable.SortableEvent) {
+          if (ev.newIndex === ev.oldIndex || !ev?.newIndex || !ev.oldIndex) return
+          const newIndex = ev.newIndex
+          const oldIndex = ev.oldIndex
           const newOrder = lineupOrder.map((player, index) => {
             if (newIndex > oldIndex) {
               if (index === oldIndex) {
