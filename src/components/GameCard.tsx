@@ -18,7 +18,7 @@ export default function GameCard(props: GameCardProps) {
             {props.game.awayTeam.name}<br />at<br />{props.game.homeTeam.name}
           </div>
           <div>
-            {formatDateTime(props.game.dateTime)}
+            {/* {formatDateTime(props.game.dateTime)} */}
           </div>
           <div>
             League: {props.game.league.name}
