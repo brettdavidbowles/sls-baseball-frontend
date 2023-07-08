@@ -4,14 +4,9 @@ import { GetServerSidePropsContext } from "next"
 import { Team, Game } from "types/gqlTypes"
 import Link from "next/link"
 import { formatDateTime } from "utils/formatDateTime"
+import ProfileGame from "@/components/ProfileGame"
 
 export default function Profile({ teams, userId, username, games }: { teams: Team[], userId: number, username: string, games: Game[] }) {
-  // const editLink = (game: Game) => {
-  //   if(game.isPast) return
-  //   return (
-  //     <Link href={`/game/${game.id}/edit`}>
-  //   )
-  // }
   return (
     <div>
       <h1 className="capitalize">{username}&apos;s Profile</h1>
@@ -25,9 +20,7 @@ export default function Profile({ teams, userId, username, games }: { teams: Tea
         <h2 className="py-2 underline text-xl">Games</h2>
         <div className="flex flex-col">
           {games.map(game => (
-            <Link href={`game/${game.id}`} key={game.id}>
-              {game.awayTeam.name} at {game.homeTeam.name} on {formatDateTime(game.dateTime)}
-            </Link>
+            <ProfileGame game={game} key={game.id} />
           ))}
         </div>
       </div>

@@ -3,6 +3,13 @@ export type League = {
   name: string
 }
 
+export type Season = {
+  id: number
+  name: string
+  start_date: string
+  end_date: string
+}
+
 export type Team = {
   id: number
   name: string
@@ -97,4 +104,15 @@ export type User = {
   firstName: string
   lastName: string
   teams: Team[]
+}
+
+export type UserGame = {
+  id: number
+  dateTime: string
+  homeTeam: Team
+  awayTeam: Team
+  league: League
+  season: Season
+  isPast: boolean
+  lineupId: number
 }

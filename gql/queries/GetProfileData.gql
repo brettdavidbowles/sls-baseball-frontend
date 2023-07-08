@@ -22,5 +22,6 @@ query GetProfileData {
       name
     }
     isPast
+    lineupId
   }
 }
