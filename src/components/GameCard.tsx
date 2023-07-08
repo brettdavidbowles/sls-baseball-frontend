@@ -7,6 +7,10 @@ interface GameCardProps {
 }
 
 export default function GameCard(props: GameCardProps) {
+  const dateTime = () => {
+    if (!props.game?.dateTime) return
+    return formatDateTime(props.game.dateTime)
+  }
   return (
     <Link
       href={`/game/${props.game.id}`}
@@ -18,7 +22,7 @@ export default function GameCard(props: GameCardProps) {
             {props.game.awayTeam.name}<br />at<br />{props.game.homeTeam.name}
           </div>
           <div>
-            {/* {formatDateTime(props.game.dateTime)} */}
+            {dateTime()}
           </div>
           <div>
             League: {props.game.league.name}
