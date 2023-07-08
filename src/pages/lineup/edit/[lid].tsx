@@ -243,7 +243,6 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
       }
     }
   })
-  // props.lineup.team.managers.some(({ user }) => user.id === props.userId)
   if (!data.lineupById?.team?.managers?.some(({ user }: { user: User }) => user.id === data.auth?.id)) {
     return {
       redirect: {
