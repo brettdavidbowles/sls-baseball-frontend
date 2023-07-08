@@ -15,6 +15,6 @@ export const formatDateTime = (date: string, dateOnly: boolean = false) => {
   const formattedDate = dateOnly ?
     `${month}/${day}/${year}` :
     // `${month}/${day}/${year} ${hours}:${minutes} (${timezone})`
-    `${month}/${day}/${year} ${hours}:${minutes})`
+    `${month}/${day}/${year} ${hours}:${minutes}`
   return formattedDate
 }
