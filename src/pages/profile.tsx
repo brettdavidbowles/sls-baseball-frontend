@@ -1,12 +1,12 @@
 import client from "apollo-client"
 import { GetProfileData } from "gql/queries/GetProfileData.gql"
 import { GetServerSidePropsContext } from "next"
-import { Team, Game } from "types/gqlTypes"
+import { Team, UserGame } from "types/gqlTypes"
 import Link from "next/link"
 import { formatDateTime } from "utils/formatDateTime"
 import ProfileGame from "@/components/ProfileGame"
 
-export default function Profile({ teams, userId, username, games }: { teams: Team[], userId: number, username: string, games: Game[] }) {
+export default function Profile({ teams, userId, username, games }: { teams: Team[], userId: number, username: string, games: UserGame[] }) {
   return (
     <div>
       <h1 className="capitalize">{username}&apos;s Profile</h1>
