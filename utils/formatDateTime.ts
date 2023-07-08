@@ -3,6 +3,8 @@ const leadingZero = (num: number) => {
 }
 
 export const formatDateTime = (date: string, dateOnly: boolean = false) => {
+  console.log('date', date)
+  console.log('typeof', typeof date)
   const dateObj = new Date(date)
   const day = dateObj.getDate()
   const month = dateObj.getMonth() + 1
