@@ -4,7 +4,7 @@ import client from "apollo-client"
 import { useMutation } from "@apollo/client"
 import { GetServerSidePropsContext } from "next"
 import { GetLineupById } from 'gql/queries/GetLineupById.gql'
-import { LineupPlayer, Team, Game, Player } from 'types/gqlTypes'
+import { LineupPlayer, Team, Game, Player, User } from 'types/gqlTypes'
 import { formatDateTime } from 'utils/formatDateTime'
 import Sortable from 'sortablejs'
 import LineupPlayerCard from '@/components/LineupPlayerCard';
@@ -243,7 +243,7 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
       }
     }
   })
-  if (!data.lineupById?.team?.managers?.map((manager: { id: string }) => manager.id)?.includes(data.auth?.id)) {
+  if (!data.lineupById?.team?.managers?.some(({ user }: { user: User }) => user.id === data.auth?.id)) {
     return {
       redirect: {
         destination: '/login'

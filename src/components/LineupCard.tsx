@@ -9,7 +9,7 @@ interface LineupCardProps {
 
 export default function LineupCard(props: LineupCardProps) {
   const editLink = () => {
-    if (props.lineup.team.managers.some(({ id }) => id === props.userId)) {
+    if (props.lineup.team.managers.some(({ user }) => user.id === props.userId)) {
       return (
         <Link href={`/lineup/edit/${props.lineup.id}`}>
           <span className="hover:text-bb-tan font-bold">(Edit)</span>

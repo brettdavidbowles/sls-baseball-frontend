@@ -4,6 +4,9 @@ query GetLineupById($id: String!) {
       name
       managers {
         id
+        user {
+          id
+        }
       }
     }
     opponent{
