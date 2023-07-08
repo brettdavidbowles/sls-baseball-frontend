@@ -1,16 +1,18 @@
 import { Game } from 'types/gqlTypes'
 import { formatDateTime } from 'utils/formatDateTime'
 import Link from 'next/link'
+import { useMemo } from 'react'
 
 interface GameCardProps {
   game: Game
 }
 
 export default function GameCard(props: GameCardProps) {
-  const dateTime = () => {
+  const dateTime = useMemo(() => {
     if (!props.game?.dateTime) return
     return formatDateTime(props.game.dateTime)
-  }
+  }, [props.game.dateTime])
+
   return (
     <Link
       href={`/game/${props.game.id}`}
@@ -22,7 +24,7 @@ export default function GameCard(props: GameCardProps) {
             {props.game.awayTeam.name}<br />at<br />{props.game.homeTeam.name}
           </div>
           <div>
-            {dateTime()}
+            {dateTime}
           </div>
           <div>
             League: {props.game.league.name}
