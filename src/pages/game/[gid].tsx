@@ -88,7 +88,12 @@ export default function Game(props: GamePageProps) {
 
       <div className={`${!isMobile ? 'flex' : 'block'}`}>
         {props.lineups?.map((lineup, index) => (
-          <LineupCard key={index} lineup={lineup} userId={props.userId} />
+          <LineupCard
+            key={index}
+            lineup={lineup}
+            userId={props.userId}
+            isPast={props.isPast}
+          />
         ))}
       </div>
     </div>

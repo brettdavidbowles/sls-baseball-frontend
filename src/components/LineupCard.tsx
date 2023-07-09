@@ -5,17 +5,18 @@ import { removeUnderscore } from "utils/removeUnderscore"
 interface LineupCardProps {
   lineup: Lineup
   userId: string
+  isPast: boolean
 }
 
 export default function LineupCard(props: LineupCardProps) {
   const editLink = () => {
-    if (props.lineup.team.managers.some(({ user }) => user.id === props.userId)) {
-      return (
-        <Link href={`/lineup/edit/${props.lineup.id}`}>
-          <span className="hover:text-bb-tan font-bold">(Edit)</span>
-        </Link>
-      )
-    }
+    if (props.isPast) return
+    if (props.lineup.team.managers.some(({ user }) => user.id !== props.userId)) return
+    return (
+      <Link href={`/lineup/edit/${props.lineup.id}`}>
+        <span className="hover:text-bb-tan font-bold">&nbsp;(Edit)</span>
+      </Link>
+    )
   }
   return (
     <div className='w-full px-4'>
@@ -26,7 +27,7 @@ export default function LineupCard(props: LineupCardProps) {
           className="hover:text-bb-tan"
         >{props.lineup.team.name}
         </Link>
-        &nbsp;Lineup {editLink()}:
+        &nbsp;Lineup{editLink()}:
       </h2>
       {
         props.lineup.players.slice(1).map((lineupPlayer: LineupPlayer) => (
