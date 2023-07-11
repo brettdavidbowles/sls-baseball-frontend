@@ -12,7 +12,7 @@ export const formatDateTime = (date: string): dateObj => {
   const hours = dateObj.getHours()
   const minutes = leadingZero(dateObj.getMinutes())
   const seconds = leadingZero(dateObj.getSeconds())
-  const timezone = dateObj?.toTimeString()?.match(/\((.+)\)/)?.[1] || 'UTC'
+  const timezone = dateObj.toLocaleTimeString(undefined, { timeZoneName: 'short' }).split(' ')[2]
   return {
     date: `${month}/${day}/${year}`,
     time: `${hours}:${minutes}:${seconds}`,

@@ -6,9 +6,9 @@ export default function DateTime({ dateTime }: { dateTime: string }) {
   return (
     <div className="flex flex-col py-2">
       <div>
-        {date} {time}
+        {date}
       </div>
-      <div>({timezone})</div>
+      <div>{`${time} (${timezone})`}</div>
     </div>
   );
 }
