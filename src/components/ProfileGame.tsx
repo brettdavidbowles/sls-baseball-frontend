@@ -1,6 +1,7 @@
 import { UserGame } from "types/gqlTypes"
 import Link from "next/link"
 import { formatDateTime } from "utils/formatDateTime"
+import DateTime from "./DateTime"
 
 export default function ProfileGame({ game }: { game: UserGame }) {
   const editLineupLink = () => {
@@ -19,9 +20,7 @@ export default function ProfileGame({ game }: { game: UserGame }) {
       <Link href={`game/${game.id}`} key={game.id}>
         {game.awayTeam.name} at {game.homeTeam.name}
       </Link>
-      <span>
-        on {formatDateTime(game.dateTime)}
-      </span>
+      <DateTime dateTime={game.dateTime} />
       <span>
         {editLineupLink()}
       </span>

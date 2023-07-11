@@ -1,21 +1,13 @@
 import { Game } from 'types/gqlTypes'
 import { formatDateTime } from 'utils/formatDateTime'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import DateTime from './DateTime'
 
 interface GameCardProps {
   game: Game
 }
 
 export default function GameCard(props: GameCardProps) {
-
-  const [dateTime, setDateTime] = useState<string>()
-
-  useEffect(() => {
-    if (!props.game?.dateTime) return
-    setDateTime(formatDateTime(props.game.dateTime))
-  }, [props.game.dateTime])
-
   return (
     <Link
       href={`/game/${props.game.id}`}
@@ -26,9 +18,7 @@ export default function GameCard(props: GameCardProps) {
           <div key={props.game.id}>
             {props.game.awayTeam.name}<br />at<br />{props.game.homeTeam.name}
           </div>
-          <div className='h-6'>
-            {dateTime}
-          </div>
+          <DateTime dateTime={props.game.dateTime} />
           <div>
             League: {props.game.league.name}
           </div>
