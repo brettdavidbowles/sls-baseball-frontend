@@ -178,21 +178,20 @@ export default function EditLineup(props: EditLineupPageProps) {
             <h2 className="hidden md:block my-4 text-lg">
               Starting Lineup
             </h2>
-            <ul
-              ref={lineup}
-              className="overflow-hidden overflow-y-auto h-[calc(100vh-300px)]"
-            >
-              {lineupOrder.map((lineupPlayer, index) => (
-                <li key={lineupPlayer.player.id}>
-                  <LineupPlayerCard
-                    spotInLineup={index + 1}
-                    lineupPlayer={lineupPlayer}
-                    showSubButton={stagedSubstitute === lineupPlayer || !stagedSubstitute}
-                    showCancelSubButton={stagedSubstitute === lineupPlayer}
-                    setStagedSubstitute={setStagedSubstitute}
-                  />
-                </li>
-              ))}
+            <ul className="overflow-hidden overflow-y-auto h-[calc(100vh-300px)]">
+              <div ref={lineup}>
+                {lineupOrder.map((lineupPlayer, index) => (
+                  <li key={lineupPlayer.player.id}>
+                    <LineupPlayerCard
+                      spotInLineup={index + 1}
+                      lineupPlayer={lineupPlayer}
+                      showSubButton={stagedSubstitute === lineupPlayer || !stagedSubstitute}
+                      showCancelSubButton={stagedSubstitute === lineupPlayer}
+                      setStagedSubstitute={setStagedSubstitute}
+                    />
+                  </li>
+                ))}
+              </div>
               <li className="my-4">
                 <LineupPlayerCard
                   lineupPlayer={pitcher}
