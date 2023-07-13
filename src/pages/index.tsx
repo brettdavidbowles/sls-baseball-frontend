@@ -8,7 +8,6 @@ import Games from '@/components/Games'
 
 
 export default function Home({ leagues, upcomingGames, recentGames }: { leagues: League[], upcomingGames: Game[], recentGames: Game[] }) {
-  console.log('upcomingGames', upcomingGames)
   return (
     <>
       <Head>
