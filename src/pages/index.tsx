@@ -41,7 +41,8 @@ export default function Home({ leagues, upcomingGames, recentGames }: { leagues:
 
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: GetHomePage
+    query: GetHomePage,
+    fetchPolicy: 'network-only'
   })
   return {
     props: {
