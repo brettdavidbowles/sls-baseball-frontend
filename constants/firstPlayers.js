@@ -2,103 +2,143 @@
 
 export const players = [
   {
-    firstName: "george",
-    lastName: "washington",
-    team: "dead presidents"
+    firstName: "stanley",
+    lastName: "hauerwas",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "athanasius",
+    lastName: "alexandria",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "gregory",
+    lastName: "nyssa",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "gregory",
+    lastName: "nazianzus",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "basil",
+    lastName: "caesarea",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "maximus",
+    lastName: "confessor",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "augustine",
+    lastName: "hippo",
+    team: "people of the cloth"
   },
   {
     firstName: "john",
-    lastName: "adams",
-    team: "dead presidents"
+    lastName: "chrysostom",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "origen",
+    lastName: "alexandria",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "irenaeus",
+    lastName: "smyrna",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "ignatius",
+    lastName: "antioch",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "james",
+    lastName: "cone",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "gustavo",
+    lastName: "gutierrez",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "david bentley",
+    lastName: "hart",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "rowan",
+    lastName: "williams",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "john scotus",
+    lastName: "eriugena",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "iamblichus",
+    lastName: "chalcidensis",
+    team: "people of the cloth"
+  },
+  {
+    firstName: "dionysius",
+    lastName: "areopagite",
+    team: "people of the cloth"
   },
   {
     firstName: "thomas",
-    lastName: "jefferson",
-    team: "dead presidents"
+    lastName: "aquino",
+    team: "people of the cloth"
   },
   {
-    firstName: "james",
-    lastName: "madison",
-    team: "dead presidents"
+    firstName: "henri",
+    lastName: "de lubac",
+    team: "people of the cloth"
   },
   {
-    firstName: "john-quincy",
-    lastName: "adams",
-    team: "dead presidents"
+    firstName: "hans urs von",
+    lastName: "balthasar",
+    team: "people of the cloth"
   },
   {
-    firstName: "andrew",
-    lastName: "jackson",
-    team: "dead presidents"
+    firstName: "karl",
+    lastName: "barth",
+    team: "people of the cloth"
   },
   {
-    firstName: "martin",
-    lastName: "van buren",
-    team: "dead presidents"
+    firstName: "dorothy",
+    lastName: "sayers",
+    team: "people of the cloth"
   },
   {
-    firstName: "william",
-    lastName: "harrison",
-    team: "dead presidents"
+    firstName: "sarah",
+    lastName: "coakley",
+    team: "people of the cloth"
   },
   {
-    firstName: "john",
-    lastName: "tyler",
-    team: "dead presidents"
+    firstName: "michael",
+    lastName: "ramsey",
+    team: "people of the cloth"
   },
   {
-    firstName: "james",
-    lastName: "polk",
-    team: "dead presidents"
+    firstName: "richard",
+    lastName: "hooker",
+    team: "people of the cloth"
   },
   {
-    firstName: "zachary",
-    lastName: "taylor",
-    team: "dead presidents"
-  },
-  {
-    firstName: "millard",
-    lastName: "fillmore",
-    team: "dead presidents"
-  },
-  {
-    firstName: "franklin",
-    lastName: "pierce",
-    team: "dead presidents"
-  },
-  {
-    firstName: "james",
-    lastName: "buchanan",
-    team: "dead presidents"
+    firstName: "sergei",
+    lastName: "bulgakov",
+    team: "people of the cloth"
   },
   {
     firstName: "abraham",
-    lastName: "lincoln",
-    team: "dead presidents"
-  },
-  {
-    firstName: "andrew",
-    lastName: "johnson",
-    team: "dead presidents"
-  },
-  {
-    firstName: "ulysses",
-    lastName: "grant",
-    team: "dead presidents"
-  },
-  {
-    firstName: "rutherford",
-    lastName: "hayes",
-    team: "dead presidents"
-  },
-  {
-    firstName: "james",
-    lastName: "garfield",
-    team: "dead presidents"
-  },
-  {
-    firstName: "chester",
-    lastName: "arthur",
-    team: "dead presidents"
+    lastName: "kuyper",
+    team: "people of the cloth"
   }
 ]
