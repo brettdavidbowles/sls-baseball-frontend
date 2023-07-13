@@ -2,103 +2,103 @@
 
 export const players = [
   {
-    firstName: "pythagoras",
-    lastName: "samos",
-    team: "Maths"
+    firstName: "george",
+    lastName: "washington",
+    team: "dead presidents"
   },
   {
-    firstName: "euclid",
-    lastName: "geometry-dad",
-    team: "Maths"
+    firstName: "john",
+    lastName: "adams",
+    team: "dead presidents"
   },
   {
-    firstName: "issac",
-    lastName: "newton",
-    team: "Maths"
+    firstName: "thomas",
+    lastName: "jefferson",
+    team: "dead presidents"
   },
   {
-    firstName: "aryabhata",
-    lastName: "i",
-    team: "Maths"
+    firstName: "james",
+    lastName: "madison",
+    team: "dead presidents"
   },
   {
-    firstName: "archimedes",
-    lastName: "syracuse",
-    team: "Maths"
+    firstName: "john-quincy",
+    lastName: "adams",
+    team: "dead presidents"
   },
   {
-    firstName: "carl",
-    lastName: "gauss",
-    team: "Maths"
+    firstName: "andrew",
+    lastName: "jackson",
+    team: "dead presidents"
   },
   {
-    firstName: "leonhard",
-    lastName: "euler",
-    team: "Maths"
+    firstName: "martin",
+    lastName: "van buren",
+    team: "dead presidents"
   },
   {
-    firstName: "srinivasa",
-    lastName: "ramanujan",
-    team: "Maths"
+    firstName: "william",
+    lastName: "harrison",
+    team: "dead presidents"
   },
   {
-    firstName: "blaise",
-    lastName: "pascal",
-    team: "Maths"
+    firstName: "john",
+    lastName: "tyler",
+    team: "dead presidents"
   },
   {
-    firstName: "ada",
-    lastName: "lovelace",
-    team: "Maths"
+    firstName: "james",
+    lastName: "polk",
+    team: "dead presidents"
   },
   {
-    firstName: "brahma",
-    lastName: "gupta",
-    team: "Maths"
+    firstName: "zachary",
+    lastName: "taylor",
+    team: "dead presidents"
   },
   {
-    firstName: "eratosthenes",
-    lastName: "cyrene",
-    team: "Maths"
+    firstName: "millard",
+    lastName: "fillmore",
+    team: "dead presidents"
   },
   {
-    firstName: "fibonacci",
-    lastName: "bonacci",
-    team: "Maths"
+    firstName: "franklin",
+    lastName: "pierce",
+    team: "dead presidents"
   },
   {
-    firstName: "hipparchus",
-    lastName: "trig-guy",
-    team: "Maths"
+    firstName: "james",
+    lastName: "buchanan",
+    team: "dead presidents"
   },
   {
-    firstName: "alan",
-    lastName: "turing",
-    team: "Maths"
+    firstName: "abraham",
+    lastName: "lincoln",
+    team: "dead presidents"
   },
   {
-    firstName: "david",
-    lastName: "hilbert",
-    team: "Maths"
+    firstName: "andrew",
+    lastName: "johnson",
+    team: "dead presidents"
   },
   {
-    firstName: "john von",
-    lastName: "neumann",
-    team: "Maths"
+    firstName: "ulysses",
+    lastName: "grant",
+    team: "dead presidents"
   },
   {
-    firstName: "claudius",
-    lastName: "ptolemy",
-    team: "Maths"
+    firstName: "rutherford",
+    lastName: "hayes",
+    team: "dead presidents"
   },
   {
-    firstName: "henri",
-    lastName: "poincaré",
-    team: "Maths"
+    firstName: "james",
+    lastName: "garfield",
+    team: "dead presidents"
   },
   {
-    firstName: "thales",
-    lastName: "miletus",
-    team: "Maths"
+    firstName: "chester",
+    lastName: "arthur",
+    team: "dead presidents"
   }
 ]
