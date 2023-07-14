@@ -175,7 +175,7 @@ export default function EditLineup(props: EditLineupPageProps) {
         </button>
       </div>
       <div>
-        <div className='static flex justify-between w-full h-full'>
+        <div className='relative md:static flex justify-between w-full h-full'>
           <div className={`absolute md:static h-full left-0 transition-all transition-1000 ${showStartingLineup ? 'visible w-full' : 'invisible w-0'} md:visible md:w-1/2`}>
             <h2 className="hidden md:block my-4 text-lg">
               Starting Lineup
