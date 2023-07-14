@@ -113,18 +113,17 @@ a {
 
 html,
 body {
-  height: 100vh;
+  height: 100%;
   padding: 0;
   margin: 0;
-  background: linear-gradient(#116466 10%, #2C3531);
 }
 
 .layout {
   /* @apply bg-bb-teal; */
   /* color: white; */
   @apply text-bb-peach;
-  /* background: linear-gradient(#116466 10%, #2C3531); */
-  /* min-height: 100vh; */
+  background: linear-gradient(#116466 10%, #2C3531);
+  min-height: 100vh;
   width: 100%;
 }
 
