@@ -2,104 +2,104 @@
 
 export const players = [
   {
-    firstName: "john",
-    lastName: "rockefeller",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "zues",
+    team: "gods"
   },
   {
-    firstName: "cornelius",
-    lastName: "vanderbilt",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "hermes",
+    team: "gods"
   },
   {
-    firstName: "andrew",
-    lastName: "carnegie",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "dionysus",
+    team: "gods"
   },
   {
-    firstName: "j.p.",
-    lastName: "morgan",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "hephaestus",
+    team: "gods"
   },
   {
-    firstName: "henry",
-    lastName: "ford",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "ares",
+    team: "gods"
   },
   {
-    firstName: "andrew",
-    lastName: "mellon",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "krishna",
+    team: "gods"
   },
   {
-    firstName: "james",
-    lastName: "duke",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "ganesha",
+    team: "gods"
   },
   {
-    firstName: "henry",
-    lastName: "flagler",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "odin",
+    team: "gods"
   },
   {
-    firstName: "george",
-    lastName: "pullman",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "poseidon",
+    team: "gods"
   },
   {
-    firstName: "james",
-    lastName: "hill",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "athena",
+    team: "gods"
   },
   {
-    firstName: "henry",
-    lastName: "frick",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "artemis",
+    team: "gods"
   },
   {
-    firstName: "charles",
-    lastName: "crocker",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "horus",
+    team: "gods"
   },
   {
-    firstName: "leland",
-    lastName: "stanford",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "vishnu",
+    team: "gods"
   },
   {
-    firstName: "collis",
-    lastName: "huntington",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "apollo",
+    team: "gods"
   },
   {
-    firstName: "edward",
-    lastName: "harriman",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "hades",
+    team: "gods"
   },
   {
-    firstName: "henry",
-    lastName: "rogers",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "hera",
+    team: "gods"
   },
   {
-    firstName: "charles",
-    lastName: "pratt",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "shiva",
+    team: "gods"
   },
   {
-    firstName: "joseph",
-    lastName: "pulitzer",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "thor",
+    team: "gods"
   },
   {
-    firstName: "thomas",
-    lastName: "edison",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "cronos",
+    team: "gods"
   },
   {
-    firstName: "larry",
-    lastName: "page",
-    team: "titans of industry"
+    firstName: "",
+    lastName: "isis",
+    team: "gods"
   },
 
 ]
