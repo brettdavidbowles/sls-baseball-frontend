@@ -158,21 +158,23 @@ export default function EditLineup(props: EditLineupPageProps) {
 
   return (
     <div className='flex flex-col h-full justify-between overscroll-none'>
-      <h1>Edit {props.team.name} Lineup</h1>
-      <h2>for game on {formatDateTime(props.game.dateTime).date} against {props.opponent.name}</h2>
-      <div className="w-full block md:hidden py-4 text-lg">
-        <button
-          className={`w-1/2 ${showStartingLineup ? 'border-b' : 'border-0'}`}
-          onClick={() => setShowStartingLineup(true)}
-        >
-          Starting Lineup
-        </button>
-        <button
-          className={`w-1/2 ${showStartingLineup ? 'border-0' : 'border-b'}`}
-          onClick={() => setShowStartingLineup(false)}
-        >
-          Bench
-        </button>
+      <div className='flex flex-col h-full justify-between'>
+        <h1>Edit {props.team.name} Lineup</h1>
+        <h2>for game on {formatDateTime(props.game.dateTime).date} against {props.opponent.name}</h2>
+        <div className="w-full block md:hidden py-4 text-lg">
+          <button
+            className={`w-1/2 ${showStartingLineup ? 'border-b' : 'border-0'}`}
+            onClick={() => setShowStartingLineup(true)}
+          >
+            Starting Lineup
+          </button>
+          <button
+            className={`w-1/2 ${showStartingLineup ? 'border-0' : 'border-b'}`}
+            onClick={() => setShowStartingLineup(false)}
+          >
+            Bench
+          </button>
+        </div>
       </div>
       <div>
         <div className='relative md:static flex justify-between w-full h-full'>
