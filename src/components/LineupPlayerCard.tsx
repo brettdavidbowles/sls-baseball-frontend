@@ -134,7 +134,7 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
         </div>
         <div className={`bg-bb-black px-8 capitalize border-b border-bb-black transition-all duration-300 ${expanded ? 'visible opacity-100 h-56' : 'invisible opacity-0 h-0'}`} >
           <h3 className="py-2">{player?.firstName} {player?.lastName}:</h3>
-          <div className="flex flex-col">
+          <div className={`flex flex-col ${expanded ? 'visible' : 'invisible'}`}>
             {Object.keys(filteredAttributeObject).map((attribute, index) => (
               <div key={attribute}>
                 {attribute}: {Object.values(filteredAttributeObject)[index]}
