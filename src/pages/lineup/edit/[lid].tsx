@@ -180,7 +180,7 @@ export default function EditLineup(props: EditLineupPageProps) {
             <h2 className="hidden md:block my-4 text-lg">
               Starting Lineup
             </h2>
-            <ul className="overflow-hidden overflow-y-auto h-[30rem] px-4 py-8">
+            <ul className="overflow-hidden overflow-y-auto h-[30rem] py-8">
               <div ref={lineup}>
                 {lineupOrder.map((lineupPlayer, index) => (
                   <li key={lineupPlayer.player.id}>
@@ -212,7 +212,7 @@ export default function EditLineup(props: EditLineupPageProps) {
           </div>
           <div className={`absolute md:static right-0 transition-all transition-1000 ${showStartingLineup ? 'invisible w-0' : 'w-full visible'} md:visible md:w-1/2`}>
             <h2 className="hidden md:block my-4 text-right text-lg">Bench</h2>
-            <ul className="overflow-hidden overflow-y-auto h-[30rem] px-4 py-8">
+            <ul className="overflow-hidden overflow-y-auto h-[30rem] py-8">
               {bench.map((player, index) => (
                 <li key={player.id}>
                   <LineupPlayerCard
