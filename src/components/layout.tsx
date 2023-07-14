@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactElement<any>
     <div className='w-full layout'>
       <Header />
       <div id="obdiv" className='h-1 absolute top-0'></div>
-      <div className='p-4'>
+      <div className='pt-16 px-4'>
         {children}
         {/* {
           React.cloneElement(children, {
