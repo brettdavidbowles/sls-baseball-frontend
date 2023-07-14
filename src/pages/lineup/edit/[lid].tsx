@@ -38,8 +38,8 @@ export default function EditLineup(props: EditLineupPageProps) {
     if (!lineup.current) return
     const sortable = Sortable.create(lineup.current,
       {
-        // onEnd: ({ newIndex, oldIndex }: { newIndex: number, oldIndex: number }) => {
         onEnd: function (ev: Sortable.SortableEvent) {
+          setLineupExpandedPlayerIndex(undefined)
           if (ev.newIndex === ev.oldIndex || !ev?.newIndex || !ev.oldIndex) return
           const newIndex = ev.newIndex
           const oldIndex = ev.oldIndex
