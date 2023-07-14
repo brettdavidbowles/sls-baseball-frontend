@@ -229,7 +229,7 @@ export default function EditLineup(props: EditLineupPageProps) {
           </div>
         </div>
       </div>
-      <div className='absolute bottom-0 left-0 w-full md:w-1/2 px-4'>
+      <div className='fixed bottom-0 left-0 w-full md:w-1/2 px-4'>
         <button
           onClick={saveLineupOnClick}
           className={`${!showStartingLineup ? 'hidden md:block' : 'block'} w-full my-8 text-center bg-bb-black py-2 rounded-lg text-bb-peach font-bold hover:bg-bb-peach hover:text-bb-black border`}
