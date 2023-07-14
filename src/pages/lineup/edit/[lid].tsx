@@ -157,8 +157,8 @@ export default function EditLineup(props: EditLineupPageProps) {
   }, [data])
 
   return (
-    <div className='flex flex-col h-full justify-between overscroll-none'>
-      <div className='flex flex-col h-full justify-between'>
+    <div className='fixed flex flex-col w-full justify-between overscroll-none'>
+      <div className='flex flex-col justify-between'>
         <h1>Edit {props.team.name} Lineup</h1>
         <h2>for game on {formatDateTime(props.game.dateTime).date} against {props.opponent.name}</h2>
         <div className="w-full block md:hidden py-4 text-lg">
@@ -212,7 +212,7 @@ export default function EditLineup(props: EditLineupPageProps) {
               </li>
             </ul>
           </div>
-          <div className={`absolute md:static right-0 transition-all transition-1000 ${showStartingLineup ? 'invisible w-0' : 'w-full visible'} md:visible md:w-1/2`}>
+          <div className={`absolute md:static right-4 transition-all transition-1000 ${showStartingLineup ? 'invisible w-0' : 'w-full visible'} md:visible md:w-1/2`}>
             <h2 className="hidden md:block my-4 text-right text-lg">Bench</h2>
             <ul className="overflow-hidden overflow-y-auto h-[30rem] mx-4 py-8">
               {bench.map((player, index) => (
