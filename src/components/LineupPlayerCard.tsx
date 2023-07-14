@@ -1,25 +1,34 @@
 import { LineupPlayer, Player } from "types/gqlTypes"
-import { removeUnderscore } from "utils/removeUnderscore"
 import Chevron from "./ImageComponents/chevron"
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { POSITIONS, Position_Key } from "constants/positions"
 
 interface LineupPlayerCardProps {
   lineupPlayer?: LineupPlayer
   player?: Player
-  spotInLineup?: number
+  spotInOrder: number
   showSubButton: boolean
   showCancelSubButton?: boolean
   setStagedSubstitute?: (player: LineupPlayer | undefined) => void
   substitutePlayer?: (player: Player) => void
+  setExpandedPlayerIndex: (index: number | undefined) => void
+  expandedPlayerIndex?: number
+  isLineup?: boolean
 }
 
 export default function LineupPlayerCard(props: LineupPlayerCardProps) {
-  const [expanded, setExpanded] = useState(false)
 
   const handleClick = () => {
-    setExpanded(!expanded)
+    if (props.expandedPlayerIndex !== props.spotInOrder) {
+      props.setExpandedPlayerIndex(props.spotInOrder)
+    } else {
+      props.setExpandedPlayerIndex(undefined)
+    }
   }
+
+  const expanded = useMemo(() => {
+    return props.expandedPlayerIndex === props.spotInOrder
+  }, [props.expandedPlayerIndex, props.spotInOrder])
 
   const player = useMemo(() => {
     if (props.lineupPlayer) {
@@ -37,11 +46,11 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
     )
   }, [player])
 
-  const spotInLineup = () => {
-    if (!props.spotInLineup) return null
+  const spotInOrder = () => {
+    if (!props.isLineup) return null
     return (
       <span className="mr-4">
-        {props.spotInLineup}
+        {props.spotInOrder}
       </span>
     )
   }
@@ -107,7 +116,7 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
         <div className="flex justify-between">
           <div className={`capitalize flex w-full justify-between py-1 px-2 ${props.lineupPlayer ? 'cursor-grab' : 'cursor-default'} pr-4`}>
             <span className={`${props.lineupPlayer?.position !== 'pitcher' ? '' : 'pl-7'}`}>
-              {spotInLineup()}
+              {spotInOrder()}
             </span>
             <span className={`${props.player ? 'pl-16' : 'pl-0'}`}>
               {player?.lastName}

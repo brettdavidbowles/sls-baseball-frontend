@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useMemo, useState, use } from 'react';
 import { useRouter } from 'next/router'
 import client from "apollo-client"
 import { useMutation } from "@apollo/client"
@@ -29,6 +29,8 @@ export default function EditLineup(props: EditLineupPageProps) {
   const [stagedSubstitute, setStagedSubstitute] = useState<LineupPlayer | undefined>()
   const [showStartingLineup, setShowStartingLineup] = useState(true)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [lineupExpandedPlayerIndex, setLineupExpandedPlayerIndex] = useState<number | undefined>()
+  const [benchExpandedPlayerIndex, setBenchExpandedPlayerIndex] = useState<number | undefined>()
 
   // TODO need to add redirect if logout
 
@@ -183,21 +185,27 @@ export default function EditLineup(props: EditLineupPageProps) {
                 {lineupOrder.map((lineupPlayer, index) => (
                   <li key={lineupPlayer.player.id}>
                     <LineupPlayerCard
-                      spotInLineup={index + 1}
+                      spotInOrder={index + 1}
                       lineupPlayer={lineupPlayer}
                       showSubButton={stagedSubstitute === lineupPlayer || !stagedSubstitute}
                       showCancelSubButton={stagedSubstitute === lineupPlayer}
                       setStagedSubstitute={setStagedSubstitute}
+                      setExpandedPlayerIndex={setLineupExpandedPlayerIndex}
+                      expandedPlayerIndex={lineupExpandedPlayerIndex}
+                      isLineup
                     />
                   </li>
                 ))}
               </div>
               <li className="my-4">
                 <LineupPlayerCard
+                  spotInOrder={0}
                   lineupPlayer={pitcher}
                   showSubButton={stagedSubstitute === pitcher || !stagedSubstitute}
                   showCancelSubButton={stagedSubstitute === pitcher}
                   setStagedSubstitute={setStagedSubstitute}
+                  setExpandedPlayerIndex={setLineupExpandedPlayerIndex}
+                  expandedPlayerIndex={lineupExpandedPlayerIndex}
                 />
               </li>
             </ul>
@@ -208,9 +216,12 @@ export default function EditLineup(props: EditLineupPageProps) {
               {bench.map((player, index) => (
                 <li key={player.id}>
                   <LineupPlayerCard
+                    spotInOrder={index}
                     player={player}
                     showSubButton={!!stagedSubstitute}
                     substitutePlayer={substitutePlayer}
+                    expandedPlayerIndex={benchExpandedPlayerIndex}
+                    setExpandedPlayerIndex={setBenchExpandedPlayerIndex}
                   />
                 </li>
               ))}
