@@ -113,7 +113,7 @@ a {
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
   padding: 0;
   margin: 0;
   background: linear-gradient(#116466 10%, #2C3531);
