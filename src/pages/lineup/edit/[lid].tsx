@@ -214,9 +214,9 @@ export default function EditLineup(props: EditLineupPageProps) {
           </div>
           <div className={`absolute md:static right-4 transition-all transition-1000 ${showStartingLineup ? 'invisible w-0' : 'w-full visible'} md:visible md:w-1/2`}>
             <h2 className="hidden md:block my-4 text-right text-lg">Bench</h2>
-            <ul className="overflow-hidden overflow-y-auto h-[30rem] mx-8 py-8">
+            <ul className="overflow-hidden overflow-y-auto h-[30rem] py-8">
               {bench.map((player, index) => (
-                <li key={player.id}>
+                <li key={player.id} className="mx-8">
                   <LineupPlayerCard
                     spotInOrder={index}
                     player={player}
