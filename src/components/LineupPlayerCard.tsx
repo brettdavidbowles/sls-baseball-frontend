@@ -114,11 +114,11 @@ export default function LineupPlayerCard(props: LineupPlayerCardProps) {
     <div className={`flex w-full ${props.player ? 'flex-row-reverse' : 'flex-row'} items-center whitespace-nowrap md:whitespace-normal`}>
       <div className="bg-bb-black border-t border-b grow">
         <div className="flex justify-between">
-          <div className={`capitalize flex w-full justify-between py-1 px-2 ${props.lineupPlayer ? 'cursor-grab' : 'cursor-default'} pr-4`}>
+          <div className={`capitalize flex w-full justify-between py-1 px-2 pr-4`}>
             <span className={`${props.lineupPlayer?.position !== 'pitcher' ? '' : 'pl-7'}`}>
               {spotInOrder()}
             </span>
-            <span className={`${props.player ? 'pl-16' : 'pl-0'}`}>
+            <span className={`${props.player ? 'pl-16' : 'pl-0'} ${props.lineupPlayer ? 'cursor-grab' : 'cursor-default'} flex-grow text-center handle`}>
               {player?.lastName}
             </span>
             <span className="text-right px-4">

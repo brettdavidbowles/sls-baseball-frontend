@@ -35,7 +35,6 @@ export default function Header() {
     }
   })
   const logout = async () => {
-    console.log(router)
     const { data } = await logoutMutation()
     if (data.logout && privateRoutes.includes(router.pathname)) {
       router.push('/')

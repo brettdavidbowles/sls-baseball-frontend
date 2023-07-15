@@ -38,6 +38,7 @@ export default function EditLineup(props: EditLineupPageProps) {
     if (!lineup.current) return
     const sortable = Sortable.create(lineup.current,
       {
+        handle: '.handle',
         onEnd: function (ev: Sortable.SortableEvent) {
           setLineupExpandedPlayerIndex(undefined)
           if (ev.newIndex === ev.oldIndex || !ev?.newIndex || !ev.oldIndex) return
@@ -161,7 +162,7 @@ export default function EditLineup(props: EditLineupPageProps) {
       <div className='flex flex-col justify-between'>
         <h1>Edit {props.team.name} Lineup</h1>
         <h2>for game on {formatDateTime(props.game.dateTime).date} against {props.opponent.name}</h2>
-        <div className="w-full block md:hidden py-4 text-lg">
+        <div className="w-full flex justify-around md:hidden p-4 text-lg">
           <button
             className={`w-1/2 ${showStartingLineup ? 'border-b' : 'border-0'}`}
             onClick={() => setShowStartingLineup(true)}
@@ -169,7 +170,7 @@ export default function EditLineup(props: EditLineupPageProps) {
             Starting Lineup
           </button>
           <button
-            className={`w-1/2 ${showStartingLineup ? 'border-0' : 'border-b'}`}
+            className={`w-1/2 mr-8 ${showStartingLineup ? 'border-0' : 'border-b'}`}
             onClick={() => setShowStartingLineup(false)}
           >
             Bench
@@ -179,7 +180,7 @@ export default function EditLineup(props: EditLineupPageProps) {
       <div>
         <div className='relative md:static flex justify-between w-full h-full'>
           <div className={`absolute md:static h-full left-0 transition-all transition-1000 ${showStartingLineup ? 'visible w-full' : 'invisible w-0'} md:visible md:w-1/2`}>
-            <h2 className="hidden md:block my-4 text-lg">
+            <h2 className="hidden md:block my-4 md:mx-4 text-lg">
               Starting Lineup
             </h2>
             <ul className="overflow-hidden overflow-y-auto h-[30rem] -ml-4 py-8">
@@ -213,8 +214,10 @@ export default function EditLineup(props: EditLineupPageProps) {
             </ul>
           </div>
           <div className={`absolute md:static right-4 transition-all transition-1000 ${showStartingLineup ? 'invisible w-0' : 'w-full visible'} md:visible md:w-1/2`}>
-            <h2 className="hidden md:block my-4 text-right text-lg">Bench</h2>
-            <ul className="overflow-hidden overflow-y-auto h-[30rem] py-8">
+            <h2 className="hidden md:block my-4 md:mx-12 text-right text-lg">
+              Bench
+            </h2>
+            <ul className="overflow-hidden overflow-y-auto h-[30rem] py-8 md:mr-4">
               {bench.map((player, index) => (
                 <li key={player.id} className="mx-8">
                   <LineupPlayerCard
