@@ -16,7 +16,13 @@ export default function GameCard(props: GameCardProps) {
       <div className='text-center w-42 mx-auto my-2 p-6 border border-green-800 rounded'>
         <div>
           <div key={props.game.id}>
-            {props.game.awayTeam.name}<br />at<br />{props.game.homeTeam.name}
+            <span className="capitalize">
+              {props.game.awayTeam.name}
+            </span>
+            <br />at<br />
+            <span className="capitalize">
+              {props.game.homeTeam.name}
+            </span>
           </div>
           <DateTime dateTime={props.game.dateTime} />
           <div>
