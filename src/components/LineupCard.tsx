@@ -14,7 +14,12 @@ export default function LineupCard(props: LineupCardProps) {
     if (props.lineup.team.managers.some(({ user }) => user.id !== props.userId)) return
     return (
       <Link href={`/lineup/edit/${props.lineup.id}`}>
-        <span className="hover:text-bb-tan font-bold">&nbsp;(Edit)</span>
+        <span className="hover:text-bb-tan font-bold">
+          &nbsp;
+          <span className="underline">
+            (Edit)
+          </span>
+        </span>
       </Link>
     )
   }
@@ -24,8 +29,9 @@ export default function LineupCard(props: LineupCardProps) {
         <Link
           key={props.lineup.team.id}
           href={`/team/${props.lineup.team.id}`}
-          className="hover:text-bb-tan"
-        >{props.lineup.team.name}
+          className="hover:text-bb-tan capitalize underline"
+        >
+          {props.lineup.team.name}
         </Link>
         &nbsp;Lineup{editLink()}:
       </h2>
