@@ -9,7 +9,7 @@ interface UpcomingGamesProps {
 export default function UpcomingGames(props: UpcomingGamesProps) {
   return (
     <div className="p-4 w-full lg:w-1/2 m-auto">
-      <h1>{props.title}</h1>
+      <h2 className="text-xl">{props.title}</h2>
       <div className="flex flex-wrap justify-around">
         {
           props.games?.map((game: Game) => (

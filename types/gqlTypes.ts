@@ -3,18 +3,34 @@ export type League = {
   name: string
 }
 
+export interface TeamRanking {
+  team: Team
+  wins: number
+  losses: number
+  average: number
+  rank: number
+}
+
 export type Season = {
   id: number
   name: string
   start_date: string
   end_date: string
+  rankings: TeamRanking[]
 }
 
+
+interface SeasonRecord {
+  seasonName: string
+  wins: number
+  losses: number
+}
 export type Team = {
   id: number
   name: string
   players: Player[]
   managers: Manager[]
+  recordPerSeason: SeasonRecord[]
 }
 
 export type Game = {

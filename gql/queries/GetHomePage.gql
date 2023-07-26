@@ -6,9 +6,19 @@ query GetHomePage(
   $upcomingGamesIsPast: Boolean = false
   $recentGamesIsPast: Boolean = true
 ) {
-  leagues: leagues {
+  seasons: seasons {
     id
     name
+    rankings {
+      team {
+        id
+        name
+      }
+      rank
+      average
+      wins	
+      losses
+    }
   },
   upcomingGames: games(
     pagination: {

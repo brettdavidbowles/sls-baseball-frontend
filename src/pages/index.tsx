@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Leagues from '@/components/Leagues'
-import { League, Game } from "types/gqlTypes"
+import { Game, Season, TeamRanking } from "types/gqlTypes"
 import client from "apollo-client"
 import { GetHomePage } from "gql/queries/GetHomePage.gql"
 import Games from '@/components/Games'
+import TeamRankings from '@/components/TeamRankings'
 
 
-export default function Home({ leagues, upcomingGames, recentGames }: { leagues: League[], upcomingGames: Game[], recentGames: Game[] }) {
+export default function Home({ upcomingGames, recentGames, seasons }: { upcomingGames: Game[], recentGames: Game[], seasons: Season[] }) {
   return (
     <>
       <Head>
@@ -18,13 +18,13 @@ export default function Home({ leagues, upcomingGames, recentGames }: { leagues:
       </Head>
       <main>
         <div className='w-full text-center pt-24'>
-          {/* <p>An interactive baseball simulator.</p> */}
-          <ul>
-            {/* <li className='py-4'>
-              <Link href='login'>Login</Link>
-            </li> */}
-          </ul>
-          {/* <Leagues leagues={leagues} /> */}
+          {seasons.map((season: Season) => (
+            <TeamRankings
+              key={season.id}
+              season={season}
+            />
+          ))
+          }
           <Games
             games={upcomingGames}
             title='Upcoming Games'
@@ -46,9 +46,10 @@ export async function getServerSideProps() {
   })
   return {
     props: {
-      leagues: data.leagues,
+      // leagues: data.leagues,
       upcomingGames: data.upcomingGames,
-      recentGames: data.recentGames
+      recentGames: data.recentGames,
+      seasons: data.seasons
     }
   }
 }
