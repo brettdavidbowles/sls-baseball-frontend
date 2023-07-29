@@ -18,6 +18,7 @@ export default function Home({ upcomingGames, recentGames, seasons }: { upcoming
       </Head>
       <main>
         <div className='w-full text-center pt-24'>
+          <p className="max-w-md w-full m-auto py-8">Due to a bug in the Simulator, some games were finishing as ties (which is impossible in baseball). These games have been deleted and rescheduled for 7-30.</p>
           {seasons.map((season: Season) => (
             <TeamRankings
               key={season.id}
