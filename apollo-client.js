@@ -6,7 +6,8 @@ import {
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL,
-  credentials: process.env.NEXT_PUBLIC_ENV === 'development' ? 'include' : 'same-origin',
+  // credentials: process.env.NEXT_PUBLIC_ENV === 'development' ? 'include' : 'same-origin',
+  credential: 'include'
 })
 
 const client = new ApolloClient({
