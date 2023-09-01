@@ -6,7 +6,8 @@ import Link from "next/link"
 import { formatDateTime } from "utils/formatDateTime"
 import ProfileGame from "@/components/ProfileGame"
 
-export default function Profile({ teams, userId, username, games }: { teams: Team[], userId: number, username: string, games: UserGame[] }) {
+export default function Profile({ teams, userId, username, games, auth }: { teams: Team[], userId: number, username: string, games: UserGame[], auth: any }) {
+  console.log(auth)
   return (
     <div>
       <h1 className="capitalize">{username}&apos;s Profile</h1>
@@ -39,19 +40,21 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
       }
     }
   })
-  if (!data.auth.id) {
-    return {
-      redirect: {
-        destination: '/login',
-      }
-    }
-  }
+  console.log('data', data)
+  // if (!data.auth.id) {
+  //   return {
+  //     redirect: {
+  //       destination: '/login',
+  //     }
+  //   }
+  // }
   return {
     props: {
       teams: data.teamsByUser,
       userId: data.auth.id,
       username: data.auth.username,
-      games: data.gamesByUser
+      games: data.gamesByUser,
+      auth: data.auth
     }
   }
 }
