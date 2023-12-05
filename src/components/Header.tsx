@@ -4,7 +4,7 @@ import Hamburger from "./Hamburger"
 import { useMemo } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsMobile, setIsMobile } from 'store/windowSlice'
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useMutation, useQuery } from "@apollo/client"
 import { LogoutMutation } from 'gql/mutations/Logout.gql'
 import { GetAuth } from 'gql/queries/GetAuth.gql'
@@ -63,7 +63,7 @@ export default function Header() {
     setShowSlider(false)
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (router.asPath !== '/') {
       setCollapseHeader(true)
     }
@@ -94,7 +94,7 @@ export default function Header() {
     return collapseHeader && isMobile
   }, [collapseHeader, isMobile])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const isMobile = window?.innerWidth < 768
     dispatch(setIsMobile(isMobile))
     const handleWindowResize = () => {
@@ -115,7 +115,7 @@ export default function Header() {
     })
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!document || router.asPath !== '/') return
     const options = {
       root: null,

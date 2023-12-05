@@ -19,7 +19,7 @@ export default async function handler(
     method: 'POST',
     headers: <HeadersInit | undefined>{
       'Accept': 'application/json',
-      'cookie': cookie,
+      'cookie': cookie
     },
     credentials: 'include',
     body: query

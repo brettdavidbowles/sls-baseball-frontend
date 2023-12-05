@@ -1,16 +1,38 @@
-import client from "apollo-client"
 import { GetProfileData } from "gql/queries/GetProfileData.gql"
-import { GetServerSidePropsContext } from "next"
 import { Team, UserGame } from "types/gqlTypes"
 import Link from "next/link"
-import { formatDateTime } from "utils/formatDateTime"
 import ProfileGame from "@/components/ProfileGame"
+import { useQuery } from "@apollo/client"
+import { useMemo, useEffect } from "react"
+import { useRouter } from 'next/router'
 
-export default function Profile({ teams, userId, username, games, auth }: { teams: Team[], userId: number, username: string, games: UserGame[], auth: any }) {
-  console.log(auth)
+export default function Profile() {
+
+  const { loading, error, data, refetch } = useQuery(GetProfileData, {
+    fetchPolicy: 'network-only'
+  })
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && !data?.auth?.id) {
+      router.push('/login')
+    }
+  }, [data, router, loading])
+
+  const teams: Team[] = useMemo(() => {
+    return data?.teamsByUser || []
+  }, [data])
+  const games: UserGame[] = useMemo(() => {
+    return data?.gamesByUser || []
+  }, [data])
+  const username = useMemo(() => {
+    return data?.auth?.username
+  }, [data])
+
+
   return (
     <div>
-      <h1 className="capitalize">{username}&apos;s Profile</h1>
+      <h1 className="capitalize">{`${username}'s`} Profile</h1>
       <h2 className="py-2 underline text-xl">Teams</h2>
       <div className="flex flex-col">
         {teams.map(team => (
@@ -27,34 +49,4 @@ export default function Profile({ teams, userId, username, games, auth }: { team
       </div>
     </div>
   )
-}
-
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const cookie = req.headers.cookie
-  const { data } = await client.query({
-    query: GetProfileData,
-    fetchPolicy: 'network-only',
-    context: {
-      headers: {
-        cookie
-      }
-    }
-  })
-  console.log('data', data)
-  // if (!data.auth.id) {
-  //   return {
-  //     redirect: {
-  //       destination: '/login',
-  //     }
-  //   }
-  // }
-  return {
-    props: {
-      teams: data.teamsByUser,
-      userId: data.auth.id,
-      username: data.auth.username,
-      games: data.gamesByUser,
-      auth: data.auth
-    }
-  }
 }
