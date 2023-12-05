@@ -13,12 +13,6 @@ export default function Profile() {
   })
   const router = useRouter()
 
-  useEffect(() => {
-    if (!loading && !data?.auth?.id) {
-      router.push('/login')
-    }
-  }, [data, router, loading])
-
   const teams: Team[] = useMemo(() => {
     return data?.teamsByUser || []
   }, [data])
